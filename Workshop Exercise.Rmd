@@ -1,8 +1,12 @@
 ---
 title: "Intro-to-R Workshop Exercise"
+subtitle: "Dealing with Data"
 author: "ER Deyle"
 date: "2023-07-14"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -13,25 +17,51 @@ knitr::opts_chunk$set(echo = TRUE)
 
 *Portions of this material were adapted from:*
 
-> François Michonneau, Tracy Teal, Auriel Fournier, Brian Seok, Adam Obeng, Aleksandra Natalia Pawlik, … Ye Li. (2019, July 1). datacarpentry/R-ecology-lesson: Data Carpentry: Data Analysis and Visualization in R for Ecologists, June 2019 (Version v2019.06.1). Zenodo. http://doi.org/10.5281/zenodo.3264888
+> François Michonneau, Tracy Teal, Auriel Fournier, Brian Seok, Adam
+> Obeng, Aleksandra Natalia Pawlik, ... Ye Li. (2019, July 1).
+> datacarpentry/R-ecology-lesson: Data Carpentry: Data Analysis and
+> Visualization in R for Ecologists, June 2019 (Version v2019.06.1).
+> Zenodo. <http://doi.org/10.5281/zenodo.3264888>
 
+## Purpose
 
+The primary objective of this workshop is to get every BU Marine
+Semester student comfortable with using R to do simple tasks that come
+up in many courses as you collect, analyze, and visualize data. To this
+end, we're going to spend a bit of the time discussing data structures.
+R doesn't make this nearly as complicated as some other coding
+environments, but ultimately all computational science has to deal with
+translating numbers and information we can interpret as scientists into
+the sequence of 1's and 0's that computers ultimate must work with. To
+get everyone introduced to the basics in R, we're going to go from:
 
+-   a variable (object) with a single value
+-   vector objects with multiple values of the same type
+-   list objects with multiple values of different types
+-   data frame objects that treat multiple lists as columns of a table
 
+While data observations you make (like today the length, width, and
+height of scallop shells) can be stored in the simpler forms, the
+functions you may likely use to analyze data (say, perform a linear
+regression or analysis of variance) will generally return lists or data
+frames.
 
 ## Learning Outcomes
 
+By the end of this lesson you should:
 
+-   Know your way around the R-studio "IDE"
+-   Know how to use the R Console to do arithmetic
+-   How to store values in variables, vectors, lists, and data frames
+-   Use these data objects to do basic computations
 
-##
-
-##
-
-
+The first half will involve reading and typing commands into the R
+console, as well as doing a few activities. In the second half you will
+do a short exercise to put these basic pieces together to do a bit of
+marine science and examing the relationship between the length and
+weight of bivalve shells.
 
 # Variables and Vectors
-
-Let's pivot now more to the R code itself.
 
 ## Creating objects in R
 
@@ -39,58 +69,83 @@ Let's pivot now more to the R code itself.
 ### Creating objects in R
 ```
 
-You can get output from R simply by typing math in the console:
+You can get output from R simply by typing math in the console. In R
+studio the `Console` tab should by default be available in the lower
+left panel. Type a few simple arithmetic expressions at the `>` and hit
+enter/return.
 
 ```{r, purl = FALSE}
 3 + 5
 12 / 7
 ```
 
-However, to do useful and interesting things, we need to assign _values_ to
-_objects_. To create an object, we need to give it a name followed by the
-assignment operator `<-`, and the value we want to give it:
+Great! Now you can use R to add decimal numbers instead of googling it.
+However, to do useful and interesting things, we need to assign *values*
+to *objects*. To create an object, we need to give it a name followed by
+the assignment operator `<-`, and the value we want to give it:
 
 ```{r, purl = FALSE}
 weight_kg <- 55
 ```
 
-`<-` is the assignment operator. It assigns values on the right to objects on
-the left. So, after executing `x <- 3`, the value of `x` is `3`.   For historical reasons, you can also use `=`
-for assignments, but not in every context. Because of the
+`<-` is the assignment operator. It assigns values on the right to
+objects on the left. So, after executing `x <- 3`, the value of `x` is
+`3`. For historical reasons, you can also use `=` for assignments, but
+not in every context. Because of the
 [slight](https://blog.revolutionanalytics.com/2008/12/use-equals-or-arrow-for-assignment.html)
 [differences](https://renkun.me/2014/01/28/difference-between-assignment-operators-in-r/)
 in syntax, it is good practice to always use `<-` for assignments.
 
-In RStudio, typing <kbd>Alt</kbd> + <kbd>-</kbd> (push <kbd>Alt</kbd> at the
-same time as the <kbd>-</kbd> key) will write ` <- ` in a single keystroke in a PC, while typing <kbd>Option</kbd> + <kbd>-</kbd> (push <kbd>Option</kbd> at the
-same time as the <kbd>-</kbd> key) does the same in a Mac.
+In RStudio, typing <kbd>Alt</kbd> + <kbd>-</kbd> (push <kbd>Alt</kbd> at
+the same time as the <kbd>-</kbd> key) will write `<-` in a single
+keystroke in a PC, while typing <kbd>Option</kbd> + <kbd>-</kbd> (push
+<kbd>Option</kbd> at the same time as the <kbd>-</kbd> key) does the
+same in a Mac.
 
-Objects can be given almost any name such as `x`, `current_temperature`, or `subject_id`. Here are some further guidelines on naming objects:
+Objects can be given almost any name such as `x`, `current_temperature`,
+or `subject_id`. Here are some further guidelines on naming objects:
 
-* You want your object names to be explicit and not too long.
-* They cannot start with a number (`2x` is not valid, but `x2` is).
-* R is case sensitive, so for example, `weight_kg` is different from `Weight_kg`.
-* There are some names that cannot be used because they are the names of fundamental functions in R (e.g., `if`, `else`, `for`, see
-[here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html)
-for a complete list). In general, even if it's allowed, it's best to not use
-other function names (e.g., `c`, `T`, `mean`, `data`, `df`, `weights`). If in
-doubt, check the help to see if the name is already in use.
-* It's best to avoid dots (`.`) within names. Many function names in R itself have them and dots also have a special meaning (methods) in R and other programming languages. To avoid confusion, don't include dots in names.
-* It is recommended to use nouns for object names and verbs for function names.
-* Be consistent in the styling of your code, such as where you put spaces, how you name objects, etc. Styles can include "lower_snake", "UPPER_SNAKE", "lowerCamelCase", "UpperCamelCase", etc. Using a consistent coding style makes your code clearer to read for your future self and your collaborators. In R, three popular style guides come from [Google](https://google.github.io/styleguide/Rguide.xml), [Jean
-Fan](https://jef.works/R-style-guide/) and the
-[tidyverse](https://style.tidyverse.org/). The tidyverse style is very comprehensive and may seem overwhelming at first. You can install the [**`lintr`**](https://github.com/jimhester/lintr) package to automatically check for issues in the styling of your code.
+-   You want your object names to be explicit and not too long.
+-   They cannot start with a number (`2x` is not valid, but `x2` is).
+-   R is case sensitive, so for example, `weight_kg` is different from
+    `Weight_kg`.
+-   There are some names that cannot be used because they are the names
+    of fundamental functions in R (e.g., `if`, `else`, `for`, see
+    [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html)
+    for a complete list). In general, even if it's allowed, it's best to
+    not use other function names (e.g., `c`, `T`, `mean`, `data`, `df`,
+    `weights`). If in doubt, check the help to see if the name is
+    already in use.
+-   It's best to avoid dots (`.`) within names. Many function names in R
+    itself have them and dots also have a special meaning (methods) in R
+    and other programming languages. To avoid confusion, don't include
+    dots in names.
+-   It is recommended to use nouns for object names and verbs for
+    function names.
+-   Be consistent in the styling of your code, such as where you put
+    spaces, how you name objects, etc. Styles can include "lower_snake",
+    "UPPER_SNAKE", "lowerCamelCase", "UpperCamelCase", etc. Using a
+    consistent coding style makes your code clearer to read for your
+    future self and your collaborators. In R, three popular style guides
+    come from [Google](https://google.github.io/styleguide/Rguide.xml),
+    [Jean Fan](https://jef.works/R-style-guide/) and the
+    [tidyverse](https://style.tidyverse.org/). The tidyverse style is
+    very comprehensive and may seem overwhelming at first. You can
+    install the [**`lintr`**](https://github.com/jimhester/lintr)
+    package to automatically check for issues in the styling of your
+    code.
 
 > ### Objects vs. variables
 >
-> What are known as `objects` in `R` are known as `variables` in many other
-> programming languages. Depending on the context, `object` and `variable` can
-> have drastically different meanings. However, in this lesson, the two words
-> are used synonymously. For more information see:
-> https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects
+> What are known as `objects` in `R` are known as `variables` in many
+> other programming languages. Depending on the context, `object` and
+> `variable` can have drastically different meanings. However, in this
+> lesson, the two words are used synonymously. For more information see:
+> <https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects>
 
-
-When assigning a value to an object, R does not print anything. You can force R to print the value by using parentheses or by typing the object name:
+When assigning a value to an object, R does not print anything. You can
+force R to print the value by using parentheses or by typing the object
+name:
 
 ```{r, purl = FALSE}
 weight_kg <- 55    # doesn't print anything
@@ -99,7 +154,8 @@ weight_kg          # and so does typing the name of the object
 ```
 
 Now that R has `weight_kg` in memory, we can do arithmetic with it. For
-instance, we may want to convert this weight into pounds (weight in pounds is 2.2 times the weight in kg):
+instance, we may want to convert this weight into pounds (weight in
+pounds is 2.2 times the weight in kg):
 
 ```{r, purl = FALSE}
 2.2 * weight_kg
@@ -112,9 +168,9 @@ weight_kg <- 57.5
 2.2 * weight_kg
 ```
 
-This means that assigning a value to one object does not change the values of
-other objects. For example, let's store the animal's weight in pounds in a new
-object, `weight_lb`:
+This means that assigning a value to one object does not change the
+values of other objects. For example, let's store the animal's weight in
+pounds in a new object, `weight_lb`:
 
 ```{r, purl = FALSE}
 weight_lb <- 2.2 * weight_kg
@@ -126,8 +182,8 @@ and then change `weight_kg` to 100.
 weight_kg <- 100
 ```
 
-What do you think is the current content of the object `weight_lb`? 126.5 or 220?
-
+What do you think is the current content of the object `weight_lb`?
+126.5 or 220?
 
 #### ACTIVITY:
 
@@ -155,35 +211,39 @@ What do you think is the current content of the object `weight_lb`? 126.5 or 220
 
 ## Functions of variables
 
-Functions are "canned scripts" that automate more complicated sets of commands
-including operations, assignments, etc. Many functions are predefined, or can be
-made available by importing R *packages* (more on that later). A function
-usually takes one or more inputs called *arguments*. Functions often (but not
-always) return a *value*. A typical example would be the function `sqrt()`. The
-input (the argument) must be a number, and the return value (in fact, the
-output) is the square root of that number. Executing a function ('running it')
-is called *calling* the function. An example of a function call is:
+Functions are "canned scripts" that automate more complicated sets of
+commands including operations, assignments, etc. Many functions are
+predefined, or can be made available by importing R *packages* (more on
+that later). A function usually takes one or more inputs called
+*arguments*. Functions often (but not always) return a *value*. A
+typical example would be the function `sqrt()`. The input (the argument)
+must be a number, and the return value (in fact, the output) is the
+square root of that number. Executing a function ('running it') is
+called *calling* the function. An example of a function call is:
 
 ```{r, eval = FALSE, purl = FALSE}
 weight_kg <- sqrt(10)
 ```
 
-Here, the value of 10 is given to the `sqrt()` function, the `sqrt()` function
-calculates the square root, and returns the value which is then assigned to
-the object `weight_kg`. This function takes one argument, other functions might take several. 
+Here, the value of 10 is given to the `sqrt()` function, the `sqrt()`
+function calculates the square root, and returns the value which is then
+assigned to the object `weight_kg`. This function takes one argument,
+other functions might take several.
 
-The return 'value' of a function need not be numerical (like that of `sqrt()`),
-and it also does not need to be a single item: it can be a set of things, or
-even a dataset. We'll see that when we read data files into R.
+The return 'value' of a function need not be numerical (like that of
+`sqrt()`), and it also does not need to be a single item: it can be a
+set of things, or even a dataset. We'll see that when we read data files
+into R.
 
 Arguments can be anything, not only numbers or filenames, but also other
-objects. Exactly what each argument means differs per function, and must be
-looked up in the documentation (see below). Some functions take arguments which
-may either be specified by the user, or, if left out, take on a *default* value:
-these are called *options*. Options are typically used to alter the way the
-function operates, such as whether it ignores 'bad values', or what symbol to
-use in a plot.  However, if you want something specific, you can specify a value
-of your choice which will be used instead of the default.
+objects. Exactly what each argument means differs per function, and must
+be looked up in the documentation (see below). Some functions take
+arguments which may either be specified by the user, or, if left out,
+take on a *default* value: these are called *options*. Options are
+typically used to alter the way the function operates, such as whether
+it ignores 'bad values', or what symbol to use in a plot. However, if
+you want something specific, you can specify a value of your choice
+which will be used instead of the default.
 
 Let's try a function that can take multiple arguments: `round()`.
 
@@ -191,12 +251,12 @@ Let's try a function that can take multiple arguments: `round()`.
 round(3.14159)
 ```
 
-Here, we've called `round()` with just one argument, `3.14159`, and it has
-returned the value `3`.  That's because the default is to round to the nearest
-whole number. If we want more digits we can see how to do that by getting
-information about the `round` function.  We can use `args(round)` to find what
-arguments it takes, or look at the
-help for this function using `?round`.
+Here, we've called `round()` with just one argument, `3.14159`, and it
+has returned the value `3`. That's because the default is to round to
+the nearest whole number. If we want more digits we can see how to do
+that by getting information about the `round` function. We can use
+`args(round)` to find what arguments it takes, or look at the help for
+this function using `?round`.
 
 ```{r, results = 'show', purl = FALSE}
 args(round)
@@ -206,15 +266,15 @@ args(round)
 ?round
 ```
 
-We see that if we want a different number of digits, we can
-type `digits = 2` or however many we want.
+We see that if we want a different number of digits, we can type
+`digits = 2` or however many we want.
 
 ```{r, results = 'show', purl = FALSE}
 round(3.14159, digits = 2)
 ```
 
-If you provide the arguments in the exact same order as they are defined you
-don't have to name them:
+If you provide the arguments in the exact same order as they are defined
+you don't have to name them:
 
 ```{r, results = 'show', purl = FALSE}
 round(3.14159, 2)
@@ -226,11 +286,11 @@ And if you do name the arguments, you can switch their order:
 round(digits = 2, x = 3.14159)
 ```
 
-It's good practice to put the non-optional arguments (like the number you're
-rounding) first in your function call, and to then specify the names of all optional
-arguments.  If you don't, someone reading your code might have to look up the
-definition of a function with unfamiliar arguments to understand what you're
-doing.
+It's good practice to put the non-optional arguments (like the number
+you're rounding) first in your function call, and to then specify the
+names of all optional arguments. If you don't, someone reading your code
+might have to look up the definition of a function with unfamiliar
+arguments to understand what you're doing.
 
 ## Vectors and data types
 
@@ -239,109 +299,116 @@ doing.
 ```
 
 A vector is the most common and basic data type in R, and is pretty much
-the workhorse of R. A vector is composed by a series of values, which can be
-either numbers or characters. We can assign a series of values to a vector using
-the `c()` function. For example we can create a vector of animal weights and assign
-it to a new object `weight_g`:
+the workhorse of R. A vector is composed by a series of values, which
+can be either numbers or characters. We can assign a series of values to
+a vector using the `c()` function. For example we can create a vector of
+animal weights and assign it to a new object `weight_g`:
 
 ```{r, purl = FALSE}
 weight_g <- c(50, 60, 65, 82)
 weight_g
 ```
 
-A vector can also contain characters:
+A vector can also contain characters, say if we have categorical
+information to store:
 
 ```{r, purl = FALSE}
-animals <- c("fish", "copepod", "whale")
-animals
+stages <- c("juvenile", "juvenile", "juvenile","adult")
+stages
 ```
 
-The quotes around "fish", "copepod", etc. are essential here. Without the quotes R
-will assume objects have been created called `fish`, `copepod` and `whale`. As these objects don't exist in R's memory, there will be an error message.
+The quotes around "juvenile", "adult", etc. are essential here. Without
+the quotes R will assume objects have been created called `juvenile` and
+`adult`. As these objects don't exist in R's memory, there will be an
+error message. [Try it!].
 
 There are many functions that allow you to inspect the content of a
-vector. `length()` tells you how many elements are in a particular vector:
+vector. `length()` tells you how many elements are in a particular
+vector:
 
 ```{r, purl = FALSE}
 length(weight_g)
-length(animals)
+length(stages)
 ```
 
-An important feature of a vector, is that all of the elements are the same type of data.
-The function `class()` indicates what kind of object you are working with:
+An important feature of a vector, is that all of the elements are the
+same type of data. The function `class()` indicates what kind of object
+you are working with:
 
 ```{r, purl = FALSE}
 class(weight_g)
-class(animals)
+class(stages)
 ```
 
-The function `str()` provides an overview of the structure of an object and its
-elements. It is a useful function when working with large and complex
-objects:
+The function `str()` provides an overview of the structure of an object
+and its elements. It is a useful function when working with large and
+complex objects:
 
 ```{r, purl = FALSE}
 str(weight_g)
-str(animals)
+str(stages)
 ```
 
 You can use the `c()` function to add other elements to your vector:
+
 ```{r, purl = FALSE}
 weight_g <- c(weight_g, 90) # add to the end of the vector
 weight_g <- c(30, weight_g) # add to the beginning of the vector
 weight_g
 ```
 
-In the first line, we take the original vector `weight_g`,
-add the value `90` to the end of it, and save the result back into
-`weight_g`. Then we add the value `30` to the beginning, again saving the result
-back into `weight_g`.
+In the first line, we take the original vector `weight_g`, add the value
+`90` to the end of it, and save the result back into `weight_g`. Then we
+add the value `30` to the beginning, again saving the result back into
+`weight_g`.
 
-We can do this over and over again to grow a vector, or assemble a dataset.
-As we program, this may be useful to add results that we are collecting or
-calculating.
+We can do this over and over again to grow a vector, or assemble a
+dataset. As we program, this may be useful to add results that we are
+collecting or calculating.
 
-An **atomic vector** is the simplest R **data type** and is a linear vector of a single type. Above, we saw
-2 of the 6 main **atomic vector** types  that R
-uses: `"character"` and `"numeric"` (or `"double"`). These are the basic building blocks that
-all R objects are built from. The other 4 **atomic vector** types are:
+An **atomic vector** is the simplest R **data type** and is a linear
+vector of a single type. Above, we saw 2 of the 6 main **atomic vector**
+types that R uses: `"character"` and `"numeric"` (or `"double"`). These
+are the basic building blocks that all R objects are built from. The
+other 4 **atomic vector** types are:
 
-* `"logical"` for `TRUE` and `FALSE` (the boolean data type)
-* `"integer"` for integer numbers (e.g., `2L`, the `L` indicates to R that it's an integer)
-* `"complex"` to represent complex numbers with real and imaginary parts (e.g.,
-  `1 + 4i`) and that's all we're going to say about them
-* `"raw"` for bitstreams that we won't discuss further
+-   `"logical"` for `TRUE` and `FALSE` (the boolean data type)
+-   `"integer"` for integer numbers (e.g., `2L`, the `L` indicates to R
+    that it's an integer)
+-   `"complex"` to represent complex numbers with real and imaginary
+    parts (e.g., `1 + 4i`) and that's all we're going to say about them
+-   `"raw"` for bitstreams that we won't discuss further
 
-You can check the type of your vector using the `typeof()` function and inputting your vector as the argument.
+You can check the type of your vector using the `typeof()` function and
+inputting your vector as the argument.
 
-Vectors are one of the many **data structures** that R uses. Other important
-ones are lists (`list`), matrices (`matrix`), data frames (`data.frame`),
-factors (`factor`) and arrays (`array`).
-
+Vectors are one of the many **data structures** that R uses. Other
+important ones are lists (`list`), matrices (`matrix`), data frames
+(`data.frame`), factors (`factor`) and arrays (`array`).
 
 #### ACTIVITY:
 
 > ### Challenge
 >
->
-> * We’ve seen that atomic vectors can be of type character,
->   numeric (or double), integer, and logical. But what happens if we try to mix these types in
->   a single vector?
+> -   We've seen that atomic vectors can be of type character, numeric
+>     (or double), integer, and logical. But what happens if we try to
+>     mix these types in a single vector?
 >
 > ```{text_answer, echo=FALSE, purl=FALSE}
 > R implicitly converts them to all be the same type
 > ```
 >
-> * What will happen in each of these examples? (hint: use `class()`
->   to check the data type of your objects):
+> -   What will happen in each of these examples? (hint: use `class()`
+>     to check the data type of your objects):
 >
->     ```r
+>     ``` r
 >     num_char <- c(1, 2, 3, "a")
 >     num_logical <- c(1, 2, 3, TRUE)
 >     char_logical <- c("a", "b", "c", TRUE)
 >     tricky <- c(1, 2, 3, "4")
 >     ```
 >
-> * Why do you think it happens?
+> -   Why do you think it happens?
 >
 > ```{text_answer, echo=FALSE, purl=FALSE}
 > Vectors can be of only one data type. R tries to
@@ -349,10 +416,11 @@ factors (`factor`) and arrays (`array`).
 > denominator" that doesn't lose any information.
 > ```
 >
-> * How many values in `combined_logical` are `"TRUE"` (as a character) in the
->   following example (reusing the 2 `..._logical`s from above):
+> -   How many values in `combined_logical` are `"TRUE"` (as a
+>     character) in the following example (reusing the 2 `..._logical`s
+>     from above):
 >
->     ```r
+>     ``` r
 >     combined_logical <- c(num_logical, char_logical)
 >     ```
 >
@@ -363,13 +431,13 @@ factors (`factor`) and arrays (`array`).
 > `combined_logical`.
 > ```
 >
-> * You've probably noticed that objects of different types get
->   converted into a single, shared type within a vector. In R, we
->   call converting objects from one class into another class
->   _coercion_. These conversions happen according to a hierarchy,
->   whereby some types get preferentially coerced into other
->   types. Can you draw a diagram that represents the hierarchy of how
->   these data types are coerced?
+> -   You've probably noticed that objects of different types get
+>     converted into a single, shared type within a vector. In R, we
+>     call converting objects from one class into another class
+>     *coercion*. These conversions happen according to a hierarchy,
+>     whereby some types get preferentially coerced into other types.
+>     Can you draw a diagram that represents the hierarchy of how these
+>     data types are coerced?
 >
 > ```{text_answer, echo=FALSE, purl=FALSE}
 > logical &#8594; numeric &#8594; character &#8592; logical
@@ -408,8 +476,8 @@ combined_logical <- c(num_logical, char_logical)
 
 ## Subsetting vectors
 
-If we want to extract one or several values from a vector, we must provide one
-or several indices in square brackets. For instance:
+If we want to extract one or several values from a vector, we must
+provide one or several indices in square brackets. For instance:
 
 ```{r, results = 'show', purl = FALSE}
 fish <- c("hake", "herring", "sprat", "cod")
@@ -417,47 +485,280 @@ fish[2]
 fish[c(3, 2)]
 ```
 
-We can also repeat the indices to create an object with more elements than the
-original one:
+We can also repeat the indices to create an object with more elements
+than the original one:
 
 ```{r, results = 'show', purl = FALSE}
 more_fish <- fish[c(1, 2, 3, 2, 1, 4)]
 more_fish
 ```
 
-R indices start at 1. Programming languages like Fortran, MATLAB, Julia, and R start
-counting at 1, because that's what human beings typically do. Languages in the C
-family (including C++, Java, Perl, and Python) count from 0 because that's
-simpler for computers to do.
+R indices start at 1. Programming languages like Fortran, MATLAB, Julia,
+and R start counting at 1, because that's what human beings typically
+do. Languages in the C family (including C++, Java, Perl, and Python)
+count from 0 because that's simpler for computers to do.
+
+## List objects
+
+Lists are a more general and flexible data object that are otherwise
+very similar to vectors. Why are they more flexible? Well, above we
+showed how a vector couldn't contain values of different classes. In a
+list that restriction is gone. Let's have a look.
+
+First, you can create a list object much the same way as a vector, but
+instead of wrapping the list of values within `c()` instead you use
+`list()`.
+
+```{r}
+num_logical <- list(1, 2, 3, TRUE)
+```
+
+This new list has the same length it would as a vector.
+
+```{r}
+length(num_logical)
+```
+
+But now when we ask about the class, what do we get?
+
+```{r}
+class(num_logical)
+```
+
+Interesting.
+
+`[ ]` selects a list of the elements while `[[ ]]` selects the single
+element of the list.
+
+Finally, interacting with list data can be especially easy when you give
+names.
+
+```{r}
+specimen_1 <- list(common_name="bay scallop",width_in=4.25,height_in=0.5,length_in=2.625,sex="female")
+```
+
+We can refer to list element by name using the `$` between the list
+object name and the name of the element we want inside.
+
+```{r}
+specimen_1[[3]]
+specimen_1$height_in
+```
+
+Have we done anything yet that we couldn't do with vectors? Not really.
+Here's the kicker, though, not only can the list elements be a mix of
+numbers, logicals, and characters, but the list elements can also be
+vectors... or even more lists!
+
+```{r}
+specimen_data <- list(weight_g = c(50, 60, 65, 82),
+                      stages=c("juvenile","juvenile","juvenile","adult"))
+```
+
+Why do you need to know how to use lists? A primary concern for this
+workshop is that if you run most statistical tests in R, be it an ANOVA
+or a linear regression, those functions tend to return list objects
+since the analysis results contain multiple kinds of information. For
+example, if we just grab one of the included R datasets, `trees` (type
+`?trees` in console if you want a bit of context), we can run a simple
+linear regression with `lm` (type `?lm` while you're at it!).
+
+```{r}
+lm_out <- lm(Volume ~ Girth,data=trees)
+```
+
+We save the output of the `lm` function call. If you look in the
+**Environment** tab in the upper right of R-studio you'll see
+`List of 12`. We can check for ourselves:
+
+```{r}
+length(lm_out)
+names(lm_out)
+```
+
+Lots of different information here, including the linear model
+coefficients, significance levels, and residuals. The `coefficients`
+element of the list happens to be a numeric named vector:
+
+```{r}
+str(lm_out$coefficients)
+```
+
+While the `model` element is something called a "data.frame" (more on
+that in just a minute).
+
+```{r}
+str(lm_out$model)
+```
+
+## Data frame objects
+
+Now we come to data frames or `data.frames`. Data frames are really just
+special kinds of lists that make dealing with multivariate data much
+easier and breazier by assuming some constraints. Basically, a data
+frame is a list of variables vectors that all have the same length.
+There's lots of tools you can pick up along the way to work with
+data.frame objects, but doing the basic interfacing as if it were a list
+can get you a long way.
+
+```{r}
+str(trees)
+```
+
+If you want to extract the girth of the 5th tree for example:
+
+```{r}
+trees$Girth[5]
+```
+
+The data frame can also act like an array, which we've skipped over a
+bit, but is the generalization of a vector that has rows and columns of
+data. Since Girth is the first variable, we can pull the same value by
+requesting the 5th row and the 1st column:
+
+```{r}
+trees[5,1]
+```
+
+Finally, it can be useful to add on new columns of data as you do
+calculations. For example, if you read the help entry on the `trees`
+data set, you might have seen the note that the variable `Girth` is an
+erroneous labeling of diameter data. Girth really is more suggestive of
+circumference than diameter. But we could do that conversion! Assuming
+the trunk has a roughly circular cross-section, then
+`circumference = pi * diameter`. And guess what, R knows the value of
+pi! (Well a lot of the digits at least).
+
+First, let us rename `Girth`. We can do this via the `names()` function.
+
+```{r}
+names(trees)
+names(trees)[1] <- "Diameter"
+names(trees)
+```
+
+Now what happens if we ask for the "Girth"?
+
+```{r}
+trees$Girth
+```
+
+It's empty! But, R is more than happy to let us assign something there.
+
+```{r}
+trees$Girth <- pi * trees$Diameter
+trees$Girth
+```
+
+Great! So now you have an idea how to interact with data.frames,
+including renaming variables and construct additional columns. Why do
+you need to know how to use data.frames? As we've already seen, they are
+a way to supply data to functions that perform statistical tests. They
+are also the way data will often be loaded into R, e.g. if you are
+reading in table from an excel or google spreadsheet. And... that is how
+we will proceed today!
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
 
 ## Putting it all together
 
-At this point you should have the basic idea for what a markdown document is, be able to write plain text, R code, and display outputs in a markdown, as well as create variables in R and perform basic arithmetic. To make sure you can put all these ideas together (and hence be ready for Lab 1!), it's time to do a very paired-down lab exercise. As in the remainder of the labs going forward, you should do the tasks in an R-markdown document and turn the completed document in to your TF. For your convenience, there is a template document to give you a basic layout, "LAB_0_template.Rmd". Please copy, then rename to the effect of "BI_521_LAB_0_Your_Name.Rmd".
+At this point you should have the basic idea for how to create variables
+in R and perform basic arithmetic. Now let's put it all together to do
+some marine science in the form of a paired-down lab exercise. You will
+collect data on the length, width, and height of shells, use a few
+mathematical formula (dare we call it a model!) to make prediction about
+the weight of those shells, then weigh the shells to validate the model
+predictions.
 
-### Collect data
+### Open a new R script
 
-There are a few "marine" "specimens" available for you to measure. Select at least 3, then measure their height, width, and length in inches.
+Just like in other labs, it's good to do your work in some sort of
+notebook. Here, we will keep it simple and make a blank R-script in
+Rstudio. While we can do all the calculations entering line-by-line into
+the console, writing the whole sequence of steps down in order minimizes
+error and maximizes the ease of reproducing. In some Marine Semester
+classes, you may be introduced to a more elegant notebook format with
+Rmarkdown.
+
+There are a few ways to get a new script open in RStudio. There's a
+small green "+" sign button in the upper left you can use or you can
+navigate to the file menu and select `New File -> R Script`. Your new,
+blank file should appear in the upper left pane of RStudio. Go ahead and
+save it in your documents folder (or where-ever you prefer) and use a
+name like "R-intro-workshop_exercise.R".
+
+### Collect and record data
+
+There are bivalve shells available for you to measure. Select at least
+5, then measure the height, width, and length in inches. Feel free to
+team up.
+
+As you measure, you need to record the measurements. As always will be
+the case, there's more than one option. Since everyone should be able to
+quickly access Google Sheets, let's do it that way. Many of you will
+have collected measurements in a lab into a data sheet; ask for help if
+this part isn't obvious. Set the document up like so:
+
+| Length | Width | Height |
+|--------|-------|--------|
+| \#     | \#    | \#     |
+| \#     | \#    | \#     |
 
 #### TASK:
 
-> Create vectors to store the measurements. (If you have used R before and are familiar with the data.frame structure, you are welcome to use instead).
+> Record vectors to store the measurements. (If you have used R before
+> and are familiar with the data.frame structure, you are welcome to use
+> instead).
 
-Alas! We have measured in inches but I'm going to ask you next to work in metric. The unit conversion for inches to cm is 1 inch = 2.54 cm.
+When you are done, we need to export the data so that it's easy to turn
+around and load into R. There are many functions to help you read data
+saved in a file into an object in R from various formats (including .xls
+and .xlsx). We're going with the classic, `read.table()`. Have at least
+a quick look at the help function by typing:
+
+```{r}
+?read.table
+```
+
+This is a very flexible function, so it may be overwhelming. It has 25
+formal arguments! Luckily, there are sensible default values available
+for all but one, `file`. So you'll have to give it the file name. The
+other important arguments here are `header` and `sep`. The first of
+those specifies if the data coming in has headers (it should) and what
+character is uses to separate the values in a row. We've made a "csv",
+so the separator is `","`.
+
+```{r}
+data_shell_sizes <- read.table(file="myfile.csv",header=TRUE,sep=",")
+```
 
 #### TASK:
 
-> Convert the measurements from inches into centimeters and store in a second set of vectors (or data.frame).
+> Use `read.table()` to import your recorded data.
 
-Now that we have centimeters, we can calculate volume in cubic centimeters. To do this, you'll need to make some approximations about the shape of the "specimens". Here are a few formula and pick the one(s) you think are most appropriate.
+Alas! We have measured in inches but I'm going to ask you next to work
+in metric. The unit conversion for inches to cm is 1 inch = 2.54 cm.
 
-| Shape             | Formula                  |
-| ----------------- | ------------------------ |
-| Rectangular Prism | l * w * h                |
-| Cylinder          | pi * r^2 * h             |
-| Cone              | 1/3 pi * r^2 * h         |
-| Ellipsoid         | 4/3 pi * l/2 * w/2 * h/2 |
+#### TASK:
 
-Note: R knows the approximate value of pi:
+> Convert the measurements from inches into centimeters and store in a
+> second set of vectors (or data.frame).
+
+Now that we have centimeters, we can calculate volume in cubic
+centimeters. To do this, you'll need to make some approximations about
+the shape of the "specimens". Here are a few formula and pick the one(s)
+you think are most appropriate. Real shells are of course neither of
+these idealized shapes, but let's see how close we can get. After all,
+*all models are wrong, some are useful.*
+
+| Shape          | Formula                     |
+|----------------|-----------------------------|
+| Disc           | pi \* r\^2 \* h             |
+| Half-Ellipsoid | 2/3 pi \* l/2 \* w/2 \* h/2 |
+
+Recall: R knows the approximate value of pi:
 
 ```{r}
 pi
@@ -465,31 +766,67 @@ pi
 
 #### TASK:
 
-> Use arithmetic to estimate the volume of each specimen you measured in cubic centimeters. 
+> Use arithmetic to estimate the volume of each specimen you measured in
+> cubic centimeters.
 
+While you do it, go ahead and make use of R data structures and descriptive variable
+names! If you come back a week later and just see
 
-Finally, polymers have a density of about 0.90 g/cc. Using this fact, now estimate the mass of each specimen.
+```{r}
+x1 <- 4.3
+x2 <- 1.2
+x3 <- 2.9
+y <- x1*x2*x3
+```
+
+You stand a good chance at not actually remembering what that code was even about.
+
+Also, calcium carbonate has a density of 1.3 g/cc. Using this fact,
+now estimate the mass of each specimen.
 
 #### TASK:
 
-> Use this approximate density and the estimated volume of each specimen to estimate their mass.
+> Use this approximate density and the estimated volume of each specimen
+> to estimate their mass.
 
-Compare your results to the direct measurements of mass for each specimen.  Display the data in a graph or a table. How close are the estimates? Does there appear to be a systematic bias?
 
-HINT: You can create a basic x-y scatter plot in R using the command `plot(x,y)` where `x` and `y` are vectors of the same length. If you want to dress it up a bit you can add a "1-1" line afterwards using `abline(a=0,b=1)`. Type `?abline` to see the syntax. You can pass additional arguments to fancy it up, like a dotted line type with `lty=2` and a red color with `color='red'`.
 
-#### TASK: 
+#### TASK:
 
-> Create a table, graph, or both to compare estimated and observed mass for the specimens. Describe briefly the agreement or disagreement.
+> Compare your results to  direct measurements of mass for each
+specimen. Collect this new data in the same spreadsheet, adding another column,
+then display the data in a graph (see below). How close are the
+estimates? Does there appear to be a systematic bias?
 
+HINT: You can create a basic x-y scatter plot in R using the command
+`plot(x,y)` where `x` and `y` are vectors of the same length. If you
+want to dress it up a bit you can add a "1-1" line afterwards using
+`abline(a=0,b=1)`. Type `?abline` to see the syntax. You can pass
+additional arguments to fancy it up, like a dotted line type with
+`lty=2` and a red color with `color='red'`.
+
+
+## If you have time
+
+In fisheries, it is often much easier to measure length of individuals than many other related variables of interest like age or weight. Allometric scaling relationships are a way to parameterize relationships between variables to estimate unmeasured variables from length (or in other cases, mass). Let's look at the relationship between length and mass for the shells.
+
+#### TASK:
+
+> Create graph that shows observed mass as a function of length for the specimens you measured, possibly including
+> measurement data from other students if you like.
+> Does mass look to be predictable from just length? Do you expect this relationship to be linear? Does it appear linear?
 
 ## Reflection Questions
 
-- Was there a systematic bias to your estimates of mass? List the different assumptions made along the way to get that estimate. Which of these might have been sources of bias? How might you change these assumptions to get better estimates? [There is possibly a lesson here that correctly written code doesn't necessarily produce correct answers!].
-- What questions do you still have about the basics of variables and vectors in R? What questions do you still have about the basic mechanics of R-markdown documents?
-
+-   Was there a systematic bias to your estimates of mass? List the
+    different assumptions made along the way to get that estimate. Which
+    of these might have been sources of bias? How might you change these
+    assumptions to get better estimates? [There is possibly a lesson
+    here that correctly written code doesn't necessarily produce correct
+    answers!].
+-   What questions do you still have about the basics of variables and
+    vectors in R?
 
 ## Appendix: Resources
 
-<https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf>  
-<https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf>
+
