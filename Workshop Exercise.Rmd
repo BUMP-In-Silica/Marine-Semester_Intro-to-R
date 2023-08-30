@@ -1,11 +1,13 @@
 ---
 title: "Intro-to-R Workshop Exercise"
-subtitle: "Dealing with Data"
 author: "ER Deyle"
 date: "2023-07-14"
-output: html_document
-editor_options: 
-  markdown: 
+output:
+  pdf_document: default
+  html_document: default
+subtitle: Dealing with Data
+editor_options:
+  markdown:
     wrap: 72
 ---
 
@@ -41,7 +43,7 @@ get everyone introduced to the basics in R, we're going to go from:
 -   data frame objects that treat multiple lists as columns of a table
 
 While data observations you make (like today the length, width, and
-height of scallop shells) can be stored in the simpler forms, the
+height of gastropod shells) can be stored in the simpler forms, the
 functions you may likely use to analyze data (say, perform a linear
 regression or analysis of variance) will generally return lists or data
 frames.
@@ -58,8 +60,9 @@ By the end of this lesson you should:
 The first half will involve reading and typing commands into the R
 console, as well as doing a few activities. In the second half you will
 do a short exercise to put these basic pieces together to do a bit of
-marine science and examing the relationship between the length and
-weight of bivalve shells.
+marine science and examining the relationship between the length and
+weight of gastropod shells that BU Ph.D. student Daniel Wuitchik is
+studying for his dissertation.
 
 # Variables and Vectors
 
@@ -667,8 +670,8 @@ we will proceed today!
 At this point you should have the basic idea for how to create variables
 in R and perform basic arithmetic. Now let's put it all together to do
 some marine science in the form of a paired-down lab exercise. You will
-collect data on the length, width, and height of shells, use a few
-mathematical formula (dare we call it a model!) to make prediction about
+collect data on the length, width, and height of slipper shells, use a few
+mathematical formula (dare we call it a model!) to make predictions about
 the weight of those shells, then weigh the shells to validate the model
 predictions.
 
@@ -691,9 +694,10 @@ name like "R-intro-workshop_exercise.R".
 
 ### Collect and record data
 
-There are bivalve shells available for you to measure. Select at least
-5, then measure the height, width, and length in inches. Feel free to
-team up.
+Courtesy of Dan Wuitchik, there are several sets of slipper shells available
+for you to measure. The samples are organized by collection site (Cape May, NJ to
+the tip of Maine) and need to be kept that way. Work with other students to measure
+the height, width, and length in cm
 
 As you measure, you need to record the measurements. As always will be
 the case, there's more than one option. Since everyone should be able to
@@ -708,12 +712,20 @@ this part isn't obvious. Set the document up like so:
 
 #### TASK:
 
-> Record vectors to store the measurements. (If you have used R before
-> and are familiar with the data.frame structure, you are welcome to use
-> instead).
+> Record physical measurements of slipper shells in a Google Sheet.
 
 When you are done, we need to export the data so that it's easy to turn
-around and load into R. There are many functions to help you read data
+around and load into R.
+
+
+#### TASK:
+
+> Download the data in your Google Sheet as a "csv" file.
+
+
+### Import the data into R
+
+There are many functions to help you read data
 saved in a file into an object in R from various formats (including .xls
 and .xlsx). We're going with the classic, `read.table()`. Have at least
 a quick look at the help function by typing:
@@ -730,7 +742,7 @@ those specifies if the data coming in has headers (it should) and what
 character is uses to separate the values in a row. We've made a "csv",
 so the separator is `","`.
 
-```{r}
+```{r,eval=FALSE}
 data_shell_sizes <- read.table(file="myfile.csv",header=TRUE,sep=",")
 ```
 
@@ -738,13 +750,13 @@ data_shell_sizes <- read.table(file="myfile.csv",header=TRUE,sep=",")
 
 > Use `read.table()` to import your recorded data.
 
-Alas! We have measured in inches but I'm going to ask you next to work
-in metric. The unit conversion for inches to cm is 1 inch = 2.54 cm.
+Alas! We have measured in millimeters but I'm going to ask you next to work
+in centimeters. The unit conversion for mm to cm is 10 mm = 1 cm.
 
 #### TASK:
 
 > Convert the measurements from inches into centimeters and store in a
-> second set of vectors (or data.frame).
+> second data.frame.
 
 Now that we have centimeters, we can calculate volume in cubic
 centimeters. To do this, you'll need to make some approximations about
@@ -764,11 +776,6 @@ Recall: R knows the approximate value of pi:
 pi
 ```
 
-#### TASK:
-
-> Use arithmetic to estimate the volume of each specimen you measured in
-> cubic centimeters.
-
 While you do it, go ahead and make use of R data structures and descriptive variable
 names! If you come back a week later and just see
 
@@ -781,13 +788,24 @@ y <- x1*x2*x3
 
 You stand a good chance at not actually remembering what that code was even about.
 
-Also, calcium carbonate has a density of 1.3 g/cc. Using this fact,
-now estimate the mass of each specimen.
+
+
+#### TASK:
+
+> Use arithmetic to estimate the volume of each specimen you measured in
+> cubic centimeters. Store the estimated volume as a new column in the data frame
+> with your imported observations of length, width, and height.
+
+
+Aragonite has a density of 2.93 g/cc. However, mollusk shells aren't composed of pure aragonite 
+and are also porous, so they are less dense. Let's assume the shells have a density of 2.7 g/cc. 
+Use this to estimate the mass of each specimen.
 
 #### TASK:
 
 > Use this approximate density and the estimated volume of each specimen
-> to estimate their mass.
+> to estimate their mass. Again, store this estimated mass as a new column
+> in the same data frame.
 
 
 
@@ -829,4 +847,11 @@ In fisheries, it is often much easier to measure length of individuals than many
 
 ## Appendix: Resources
 
+More on Crepidula fornicata:
+
+Henry, J. Q., & Lyons, D. C. (2016). Molluscan models: Crepidula fornicata. Current Opinion in Genetics & Development, 39, 138-148. https://doi.org/10.1016/j.gde.2016.05.021
+
+Global change dimensions of mollusk shell properties:
+
+Gizzi, F., Caccia, M., Simoncini, G. et al. Shell properties of commercial clam Chamelea gallina are influenced by temperature and solar radiation along a wide latitudinal gradient. Sci Rep 6, 36420 (2016). https://doi.org/10.1038/srep36420
 
