@@ -40,7 +40,7 @@ get everyone introduced to the basics in R, we're going to go from:
 -   a variable (object) with a single value
 -   vector objects with multiple values of the same type
 -   list objects with multiple values of different types
--   data frame objects that treat multiple lists as columns of a table
+-   data frame objects that treat a list of vectors as columns of a table
 
 While data observations you make (like today the length, width, and
 height of gastropod shells) can be stored in the simpler forms, the
@@ -564,10 +564,10 @@ or a linear regression, those functions tend to return list objects
 since the analysis results contain multiple kinds of information. For
 example, if we just grab one of the included R datasets, `trees` (type
 `?trees` in console if you want a bit of context), we can run a simple
-linear regression with `lm` (type `?lm` while you're at it!).
+correlation test with `cor.test()` (type `?cor.test` while you're at it!).
 
 ```{r}
-lm_out <- lm(Volume ~ Girth,data=trees)
+cor_out <- cor.test(trees$Volume, trees$Girth)
 ```
 
 We save the output of the `lm` function call. If you look in the
@@ -575,16 +575,16 @@ We save the output of the `lm` function call. If you look in the
 `List of 12`. We can check for ourselves:
 
 ```{r}
-length(lm_out)
-names(lm_out)
+length(cor_out)
+names(cor_out)
 ```
 
-Lots of different information here, including the linear model
-coefficients, significance levels, and residuals. The `coefficients`
+Lots of different information here, including the linear correlation
+statistic, significance levels, and p.value. The `conf.int`
 element of the list happens to be a numeric named vector:
 
 ```{r}
-str(lm_out$coefficients)
+str(cor_out$conf.int)
 ```
 
 While the `model` element is something called a "data.frame" (more on
@@ -599,16 +599,36 @@ str(lm_out$model)
 Now we come to data frames or `data.frames`. Data frames are really just
 special kinds of lists that make dealing with multivariate data much
 easier and breazier by assuming some constraints. Basically, a data
-frame is a list of variables vectors that all have the same length.
-There's lots of tools you can pick up along the way to work with
-data.frame objects, but doing the basic interfacing as if it were a list
-can get you a long way.
+frame is a list of vectors that all have the same length and so can be
+treated as the columns of a table. Let's back up to that R object `trees`
+we just used to do a quick linear regression. You can inspect data.frame
+objects a number of ways, including just asking the console to print it.
+
+```{r}
+trees
+```
+
+We live in the era of big data, though! Even 31 rows can fill up your screen
+quickly. Often, just a glance is enough to check out a data.frame. Enter the
+`head()` command which lets you peak at the first few rows.
+
+```{r}
+head(trees)
+```
+
+*Aside: can you guess what `tail()` does?*
+
+Either way, it is easy to see that the data.frame `trees` has 4 columns,
+named Diameter, Height, and Volume. Alternatively, or additionally you can
+use many of the same interfacing modes for lists that we just discussed,
+beginning with `str()`.
 
 ```{r}
 str(trees)
 ```
 
-If you want to extract the girth of the 5th tree for example:
+Then if you want to extract the girth of the 5th tree for example, you do it
+just as we did above for a list:
 
 ```{r}
 trees$Girth[5]
@@ -653,13 +673,13 @@ trees$Girth <- pi * trees$Diameter
 trees$Girth
 ```
 
-Great! So now you have an idea how to interact with data.frames,
-including renaming variables and construct additional columns. Why do
-you need to know how to use data.frames? As we've already seen, they are
-a way to supply data to functions that perform statistical tests. They
-are also the way data will often be loaded into R, e.g. if you are
-reading in table from an excel or google spreadsheet. And... that is how
-we will proceed today!
+Great! Past this, there's lots of tools you can pick up along the way to
+work with data.frame objects, but now you have the basics, including
+renaming variables and construct additional columns. Why do you need to know
+how to use data.frames? As we've already seen, they are a way to supply data
+to functions that perform statistical tests. They are also the way data will
+often be loaded into R, e.g. if you are reading in table from an excel or
+google spreadsheet. And... that is how we will proceed today!
 
 ------------------------------------------------------------------------
 
@@ -697,7 +717,8 @@ name like "R-intro-workshop_exercise.R".
 Courtesy of Dan Wuitchik, there are several sets of slipper shells available
 for you to measure. The samples are organized by collection site (Cape May, NJ to
 the tip of Maine) and need to be kept that way. Work with other students to measure
-the height, width, and length in cm
+the height, width, and length in mm. Make sure you all agree on which dimensions
+you'll be calling "height", "width", and "length"!
 
 As you measure, you need to record the measurements. As always will be
 the case, there's more than one option. Since everyone should be able to
@@ -755,7 +776,7 @@ in centimeters. The unit conversion for mm to cm is 10 mm = 1 cm.
 
 #### TASK:
 
-> Convert the measurements from inches into centimeters and store in a
+> Convert the measurements from milimeters into centimeters and store in a
 > second data.frame.
 
 Now that we have centimeters, we can calculate volume in cubic
@@ -816,7 +837,7 @@ specimen. Collect this new data in the same spreadsheet, adding another column,
 then display the data in a graph (see below). How close are the
 estimates? Does there appear to be a systematic bias?
 
-HINT: You can create a basic x-y scatter plot in R using the command
+HINT 1: You can create a basic x-y scatter plot in R using the command
 `plot(x,y)` where `x` and `y` are vectors of the same length. If you
 want to dress it up a bit you can add a "1-1" line afterwards using
 `abline(a=0,b=1)`. Type `?abline` to see the syntax. You can pass
@@ -825,6 +846,38 @@ additional arguments to fancy it up, like a dotted line type with
 
 
 ## If you have time
+
+### Option 1: plotting with a more advanced package
+
+
+Alternatively, you can create a basic x-y scatter plot using the
+vaunted `ggplot2` package. `ggplot2` uses a grammer of graphics (hence `gg`)
+to specify how a plot is built of sequential commands and layers "added"
+together.
+
+First, you need to make sure ggplot2 is installed.
+
+```{r}
+install.packages("ggplot2")
+```
+
+Once you have installed a package, you also need to tell R you want to use it
+in the current session.
+
+```{r}
+library("ggplot2")
+```
+
+Now, for a basic `ggplot2` command you'll need to first specify which
+variables you're working with through a `mapping` arguement, then the style
+of plot you want made from them. Try `ggplot(mydata,mapping=aes(x,y))) + geom_point()` 
+where `x` and `y` are now the names of the data columns in `mydata`. If you
+want to dress it up a bit you can add a "1-1" line afterwards using
+`+ geom_abline(aes(intercept=0,slope=1),lty=2,color="red")`.
+
+
+### Option 2: dig deeper into geometry and scaling
+
 
 In fisheries, it is often much easier to measure length of individuals than many other related variables of interest like age or weight. Allometric scaling relationships are a way to parameterize relationships between variables to estimate unmeasured variables from length (or in other cases, mass). Let's look at the relationship between length and mass for the shells.
 
