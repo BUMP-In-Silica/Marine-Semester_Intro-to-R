@@ -570,9 +570,9 @@ correlation test with `cor.test()` (type `?cor.test` while you're at it!).
 cor_out <- cor.test(trees$Volume, trees$Girth)
 ```
 
-We save the output of the `lm` function call. If you look in the
+We save the output of the `cor.test` function call. If you look in the
 **Environment** tab in the upper right of R-studio you'll see
-`List of 12`. We can check for ourselves:
+`List of 9`. We can check for ourselves:
 
 ```{r}
 length(cor_out)
