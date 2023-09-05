@@ -744,9 +744,10 @@ bit of context), we can run a simple correlation test with
 <code>cor.test()</code> (type <code>?cor.test</code> while you’re at
 it!).</p>
 <pre class="r"><code>cor_out &lt;- cor.test(trees$Volume, trees$Girth)</code></pre>
-<p>We save the output of the <code>lm</code> function call. If you look
-in the <strong>Environment</strong> tab in the upper right of R-studio
-you’ll see <code>List of 12</code>. We can check for ourselves:</p>
+<p>We save the output of the <code>cor.test</code> function call. If you
+look in the <strong>Environment</strong> tab in the upper right of
+R-studio you’ll see <code>List of 9</code>. We can check for
+ourselves:</p>
 <pre class="r"><code>length(cor_out)</code></pre>
 <pre><code>## [1] 9</code></pre>
 <pre class="r"><code>names(cor_out)</code></pre>
