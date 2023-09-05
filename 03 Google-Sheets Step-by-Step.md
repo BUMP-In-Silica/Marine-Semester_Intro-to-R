@@ -6,7 +6,7 @@ In the main Workshop Exercise you are asked to do data entry using Google Sheets
 
 Begin by navigating to [https://docs.google.com/spreadsheets/u/0/](https://docs.google.com/spreadsheets/u/0/) and creating a blank Google Sheets document.
 
-![A screen shot image of the new sheet dialogue. The blank sheet option is a colored plus sign with the word "Blank" underneath](https://github.com/BUMP-In-Silica/Marine-Semester_Intro-to-R/assets/images/Google Sheets Image 1.jpg)
+[A screen shot image of the new sheet dialogue. The blank sheet option is a colored plus sign with the word "Blank" underneath](https://github.com/BUMP-In-Silica/Marine-Semester_Intro-to-R/assets/images/Google Sheets Image 1.jpg)
 
 ## Step 2
 
