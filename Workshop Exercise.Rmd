@@ -1,10 +1,10 @@
 ---
 title: "Intro-to-R Workshop Exercise"
 author: "ER Deyle"
-date: "2023-07-14"
+date: "Fall 2023"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 subtitle: Dealing with Data
 editor_options:
   markdown:
@@ -16,14 +16,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Introduction
-
-*Portions of this material were adapted from:*
-
-> François Michonneau, Tracy Teal, Auriel Fournier, Brian Seok, Adam
-> Obeng, Aleksandra Natalia Pawlik, ... Ye Li. (2019, July 1).
-> datacarpentry/R-ecology-lesson: Data Carpentry: Data Analysis and
-> Visualization in R for Ecologists, June 2019 (Version v2019.06.1).
-> Zenodo. <http://doi.org/10.5281/zenodo.3264888>
 
 ## Purpose
 
@@ -570,9 +562,9 @@ correlation test with `cor.test()` (type `?cor.test` while you're at it!).
 cor_out <- cor.test(trees$Volume, trees$Girth)
 ```
 
-We save the output of the `lm` function call. If you look in the
+We save the output of the `cor.test` function call. If you look in the
 **Environment** tab in the upper right of R-studio you'll see
-`List of 12`. We can check for ourselves:
+`List of 9`. We can check for ourselves:
 
 ```{r}
 length(cor_out)
@@ -580,18 +572,17 @@ names(cor_out)
 ```
 
 Lots of different information here, including the linear correlation
-statistic, significance levels, and p.value. The `conf.int`
-element of the list happens to be a numeric named vector:
+statistic, significance levels, and p.value. Some of these elements
+are just single numeric values.
+
+```{r}
+cor_out$statistic
+```
+
+While the `conf.int` element of the list happens to be a numeric named vector:
 
 ```{r}
 str(cor_out$conf.int)
-```
-
-While the `model` element is something called a "data.frame" (more on
-that in just a minute).
-
-```{r}
-str(lm_out$model)
 ```
 
 ## Data frame objects
@@ -680,8 +671,6 @@ how to use data.frames? As we've already seen, they are a way to supply data
 to functions that perform statistical tests. They are also the way data will
 often be loaded into R, e.g. if you are reading in table from an excel or
 google spreadsheet. And... that is how we will proceed today!
-
-------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
@@ -857,7 +846,7 @@ together.
 
 First, you need to make sure ggplot2 is installed.
 
-```{r}
+```{r,eval=FALSE}
 install.packages("ggplot2")
 ```
 
@@ -899,6 +888,15 @@ In fisheries, it is often much easier to measure length of individuals than many
     vectors in R?
 
 ## Appendix: Resources
+
+
+Portions of this material were adapted from:
+
+> François Michonneau, Tracy Teal, Auriel Fournier, Brian Seok, Adam
+> Obeng, Aleksandra Natalia Pawlik, ... Ye Li. (2019, July 1).
+> datacarpentry/R-ecology-lesson: Data Carpentry: Data Analysis and
+> Visualization in R for Ecologists, June 2019 (Version v2019.06.1).
+> Zenodo. <http://doi.org/10.5281/zenodo.3264888>
 
 More on Crepidula fornicata:
 
