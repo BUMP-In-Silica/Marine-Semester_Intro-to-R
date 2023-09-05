@@ -10,8 +10,20 @@ Begin by navigating to [https://docs.google.com/spreadsheets/u/0/](https://docs.
 
 ## Step 2
 
+Next, name columns for heigh, width, and length measurements by typing these names into the top row.
+
+![](assets/images/Google Sheets Image 2.jpg)
+
+Fill in the measurements as you go.
 
 ## Step 3
 
+Once you have finished data collection and entry, use the "File" menu to Download the sheet as "Comma Separated Values" (.csv).
+
+![](assets/images/Google Sheets Image 3.jpg)
 
 ## Step 4
+
+The "csv" file will then go to your Downloads folder.
+
+![](assets/images/Google Sheets Image 4.jpg)
