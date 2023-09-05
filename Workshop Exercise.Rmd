@@ -3,7 +3,8 @@ title: "Intro-to-R Workshop Exercise"
 author: "ER Deyle"
 date: "Fall 2023"
 output:
-  html_document: default
+  html_document:
+    keep_md: true
   pdf_document: default
 subtitle: Dealing with Data
 editor_options:

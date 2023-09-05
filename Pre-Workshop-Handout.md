@@ -114,7 +114,8 @@ command into the __Console__ window (look for a blinking cursor on the bottom le
 then press the <kbd>Enter</kbd> (Windows and Linux) or <kbd>Return</kbd> (MacOS) 
 to execute the command.
 
-```{r eval=FALSE}
+
+```r
 install.packages("ggplot2")
 ```
 
@@ -126,7 +127,8 @@ R tries to download and install the packages on your machine.
 When the installation has finished, you can try to load the
 packages by pasting the following code into the console:
 
-```{r eval=FALSE}
+
+```r
 library(ggplot2)
 ```
 
