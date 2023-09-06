@@ -2,11 +2,16 @@
 title: "Intro-to-R Workshop Exercise"
 author: "ER Deyle"
 date: "Fall 2023"
+subtitle: Dealing with Data
 output:
+  pdf_document: 
+    latex_engine: xelatex
   html_document:
     keep_md: true
-  pdf_document: default
-subtitle: Dealing with Data
+header-includes:
+    - \usepackage[default]{sourcesanspro}
+    - \usepackage[T1]{fontenc}
+mainfont: SourceSansPro
 editor_options:
   markdown:
     wrap: 72
@@ -14,6 +19,7 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, dev="cairo_pdf")
 ```
 
 # Introduction
@@ -685,6 +691,11 @@ mathematical formula (dare we call it a model!) to make predictions about
 the weight of those shells, then weigh the shells to validate the model
 predictions.
 
+
+### Do some housekeeping
+
+Very quickly when using R or other coding languages to do data science you'll find your work is involving several different pieces. Before you get any further, it would be good to make a new folder somewhere on your computer for this workshop. Our recommendation is to either do this on your Desktop or in your Documents. You can name it something like "BUMP-R-workshop" (or whatever else makes sense to you).
+
 ### Open a new R script
 
 Just like in other labs, it's good to do your work in some sort of
@@ -692,14 +703,13 @@ notebook. Here, we will keep it simple and make a blank R-script in
 Rstudio. While we can do all the calculations entering line-by-line into
 the console, writing the whole sequence of steps down in order minimizes
 error and maximizes the ease of reproducing. In some Marine Semester
-classes, you may be introduced to a more elegant notebook format with
-Rmarkdown.
+classes, you may also be introduced to a slightly fancier notebook format with Rmarkdown.
 
 There are a few ways to get a new script open in RStudio. There's a
 small green "+" sign button in the upper left you can use or you can
 navigate to the file menu and select `New File -> R Script`. Your new,
 blank file should appear in the upper left pane of RStudio. Go ahead and
-save it in your documents folder (or where-ever you prefer) and use a
+save it in the "BUMP-R-workshop" folder you just made and use a
 name like "R-intro-workshop_exercise.R".
 
 ### Collect and record data
@@ -731,7 +741,7 @@ around and load into R.
 
 #### TASK:
 
-> Download the data in your Google Sheet as a "csv" file.
+> Download the data in your Google Sheet as a "csv" file. Once you've downloaded, drag-and-drop (move) the file from your downloads to the "BUMP-R-workshop" folder using the normal file system on your computer.
 
 
 ### Import the data into R
@@ -753,21 +763,32 @@ those specifies if the data coming in has headers (it should) and what
 character is uses to separate the values in a row. We've made a "csv",
 so the separator is `","`.
 
-```{r,eval=FALSE}
-data_shell_sizes <- read.table(file="myfile.csv",header=TRUE,sep=",")
+```{r,warning=FALSE}
+data_shell_sizes <- read.table(file="Slipper Shell Data - Sheet1.csv",header=TRUE,sep=",")
 ```
+
+*THIS PROBABLY DIDN'T WORK*. R likely just told you "No such file or directory". That's because R doesn't know where to look yet. Remember how you made a new folder for this workshop? That's going to pay off now! We can tell R that we're working in a particular file location on the computer; R calls this a "working directory". If you navigate at the top of the window to `Session -> Set Working Directory -> Choose Directory ...`, R will open a window and let you click through your file system to show R where to go.
 
 #### TASK:
 
+> Set the working directory of your R `Session` to the folder on your computer where you've put the data file.
 > Use `read.table()` to import your recorded data.
+
+You can check if this worked using the `head()` command.
+
+```{r}
+head(data_shell_sizes)
+```
+
+### Do additional computations from these data
 
 Alas! We have measured in millimeters but I'm going to ask you next to work
 in centimeters. The unit conversion for mm to cm is 10 mm = 1 cm.
 
 #### TASK:
 
-> Convert the measurements from milimeters into centimeters and store in a
-> second data.frame.
+> Convert the measurements from milimeters into centimeters, storing these
+> as additional columns in the data.frame.
 
 Now that we have centimeters, we can calculate volume in cubic
 centimeters. To do this, you'll need to make some approximations about
@@ -778,8 +799,8 @@ these idealized shapes, but let's see how close we can get. After all,
 
 | Shape          | Formula                     |
 |----------------|-----------------------------|
-| Disc           | pi \* r\^2 \* h             |
-| Half-Ellipsoid | 2/3 pi \* l/2 \* w/2 \* h/2 |
+| Disc           | 𝜋 × r&sup2; ×𝒽         |
+| Half-Ellipsoid | 2/3 × 𝜋 × 𝓁/2 × 𝒽/2 × 𝒽/2 |
 
 Recall: R knows the approximate value of pi:
 

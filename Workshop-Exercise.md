@@ -2,11 +2,12 @@
 title: "Intro-to-R Workshop Exercise"
 author: "ER Deyle"
 date: "Fall 2023"
+subtitle: Dealing with Data
 output:
   html_document:
     keep_md: true
-  pdf_document: default
-subtitle: Dealing with Data
+  pdf_document: 
+    latex_engine: xelatex
 editor_options:
   markdown:
     wrap: 72
@@ -31,7 +32,8 @@ get everyone introduced to the basics in R, we're going to go from:
 -   a variable (object) with a single value
 -   vector objects with multiple values of the same type
 -   list objects with multiple values of different types
--   data frame objects that treat a list of vectors as columns of a table
+-   data frame objects that treat a list of vectors as columns of a
+    table
 
 While data observations you make (like today the length, width, and
 height of gastropod shells) can be stored in the simpler forms, the
@@ -658,7 +660,8 @@ or a linear regression, those functions tend to return list objects
 since the analysis results contain multiple kinds of information. For
 example, if we just grab one of the included R datasets, `trees` (type
 `?trees` in console if you want a bit of context), we can run a simple
-correlation test with `cor.test()` (type `?cor.test` while you're at it!).
+correlation test with `cor.test()` (type `?cor.test` while you're at
+it!).
 
 
 ```r
@@ -688,8 +691,8 @@ names(cor_out)
 ```
 
 Lots of different information here, including the linear correlation
-statistic, significance levels, and p.value. Some of these elements
-are just single numeric values.
+statistic, significance levels, and p.value. Some of these elements are
+just single numeric values.
 
 
 ```r
@@ -701,7 +704,8 @@ cor_out$statistic
 ## 20.47829
 ```
 
-While the `conf.int` element of the list happens to be a numeric named vector:
+While the `conf.int` element of the list happens to be a numeric named
+vector:
 
 
 ```r
@@ -719,9 +723,10 @@ Now we come to data frames or `data.frames`. Data frames are really just
 special kinds of lists that make dealing with multivariate data much
 easier and breazier by assuming some constraints. Basically, a data
 frame is a list of vectors that all have the same length and so can be
-treated as the columns of a table. Let's back up to that R object `trees`
-we just used to do a quick linear regression. You can inspect data.frame
-objects a number of ways, including just asking the console to print it.
+treated as the columns of a table. Let's back up to that R object
+`trees` we just used to do a quick linear regression. You can inspect
+data.frame objects a number of ways, including just asking the console
+to print it.
 
 
 ```r
@@ -763,9 +768,10 @@ trees
 ## 31  20.6     87   77.0
 ```
 
-We live in the era of big data, though! Even 31 rows can fill up your screen
-quickly. Often, just a glance is enough to check out a data.frame. Enter the
-`head()` command which lets you peak at the first few rows.
+We live in the era of big data, though! Even 31 rows can fill up your
+screen quickly. Often, just a glance is enough to check out a
+data.frame. Enter the `head()` command which lets you peak at the first
+few rows.
 
 
 ```r
@@ -785,9 +791,9 @@ head(trees)
 *Aside: can you guess what `tail()` does?*
 
 Either way, it is easy to see that the data.frame `trees` has 4 columns,
-named Diameter, Height, and Volume. Alternatively, or additionally you can
-use many of the same interfacing modes for lists that we just discussed,
-beginning with `str()`.
+named Diameter, Height, and Volume. Alternatively, or additionally you
+can use many of the same interfacing modes for lists that we just
+discussed, beginning with `str()`.
 
 
 ```r
@@ -801,8 +807,8 @@ str(trees)
 ##  $ Volume: num  10.3 10.3 10.2 16.4 18.8 19.7 15.6 18.2 22.6 19.9 ...
 ```
 
-Then if you want to extract the girth of the 5th tree for example, you do it
-just as we did above for a list:
+Then if you want to extract the girth of the 5th tree for example, you
+do it just as we did above for a list:
 
 
 ```r
@@ -884,11 +890,12 @@ trees$Girth
 
 Great! Past this, there's lots of tools you can pick up along the way to
 work with data.frame objects, but now you have the basics, including
-renaming variables and construct additional columns. Why do you need to know
-how to use data.frames? As we've already seen, they are a way to supply data
-to functions that perform statistical tests. They are also the way data will
-often be loaded into R, e.g. if you are reading in table from an excel or
-google spreadsheet. And... that is how we will proceed today!
+renaming variables and construct additional columns. Why do you need to
+know how to use data.frames? As we've already seen, they are a way to
+supply data to functions that perform statistical tests. They are also
+the way data will often be loaded into R, e.g. if you are reading in
+table from an excel or google spreadsheet. And... that is how we will
+proceed today!
 
 ------------------------------------------------------------------------
 
@@ -897,10 +904,19 @@ google spreadsheet. And... that is how we will proceed today!
 At this point you should have the basic idea for how to create variables
 in R and perform basic arithmetic. Now let's put it all together to do
 some marine science in the form of a paired-down lab exercise. You will
-collect data on the length, width, and height of slipper shells, use a few
-mathematical formula (dare we call it a model!) to make predictions about
-the weight of those shells, then weigh the shells to validate the model
-predictions.
+collect data on the length, width, and height of slipper shells, use a
+few mathematical formula (dare we call it a model!) to make predictions
+about the weight of those shells, then weigh the shells to validate the
+model predictions.
+
+### Do some housekeeping
+
+Very quickly when using R or other coding languages to do data science
+you'll find your work is involving several different pieces. Before you
+get any further, it would be good to make a new folder somewhere on your
+computer for this workshop. Our recommendation is to either do this on
+your Desktop or in your Documents. You can name it something like
+"BUMP-R-workshop" (or whatever else makes sense to you).
 
 ### Open a new R script
 
@@ -909,23 +925,24 @@ notebook. Here, we will keep it simple and make a blank R-script in
 Rstudio. While we can do all the calculations entering line-by-line into
 the console, writing the whole sequence of steps down in order minimizes
 error and maximizes the ease of reproducing. In some Marine Semester
-classes, you may be introduced to a more elegant notebook format with
-Rmarkdown.
+classes, you may also be introduced to a slightly fancier notebook
+format with Rmarkdown.
 
 There are a few ways to get a new script open in RStudio. There's a
 small green "+" sign button in the upper left you can use or you can
 navigate to the file menu and select `New File -> R Script`. Your new,
 blank file should appear in the upper left pane of RStudio. Go ahead and
-save it in your documents folder (or where-ever you prefer) and use a
-name like "R-intro-workshop_exercise.R".
+save it in the "BUMP-R-workshop" folder you just made and use a name
+like "R-intro-workshop_exercise.R".
 
 ### Collect and record data
 
-Courtesy of Dan Wuitchik, there are several sets of slipper shells available
-for you to measure. The samples are organized by collection site (Cape May, NJ to
-the tip of Maine) and need to be kept that way. Work with other students to measure
-the height, width, and length in mm. Make sure you all agree on which dimensions
-you'll be calling "height", "width", and "length"!
+Courtesy of Dan Wuitchik, there are several sets of slipper shells
+available for you to measure. The samples are organized by collection
+site (Cape May, NJ to the tip of Maine) and need to be kept that way.
+Work with other students to measure the height, width, and length in mm.
+Make sure you all agree on which dimensions you'll be calling "height",
+"width", and "length"!
 
 As you measure, you need to record the measurements. As always will be
 the case, there's more than one option. Since everyone should be able to
@@ -945,18 +962,19 @@ this part isn't obvious. Set the document up like so:
 When you are done, we need to export the data so that it's easy to turn
 around and load into R.
 
-
 #### TASK:
 
-> Download the data in your Google Sheet as a "csv" file.
-
+> Download the data in your Google Sheet as a "csv" file. Once you've
+> downloaded, drag-and-drop (move) the file from your downloads to the
+> "BUMP-R-workshop" folder using the normal file system on your
+> computer.
 
 ### Import the data into R
 
-There are many functions to help you read data
-saved in a file into an object in R from various formats (including .xls
-and .xlsx). We're going with the classic, `read.table()`. Have at least
-a quick look at the help function by typing:
+There are many functions to help you read data saved in a file into an
+object in R from various formats (including .xls and .xlsx). We're going
+with the classic, `read.table()`. Have at least a quick look at the help
+function by typing:
 
 
 ```r
@@ -973,20 +991,48 @@ so the separator is `","`.
 
 
 ```r
-data_shell_sizes <- read.table(file="myfile.csv",header=TRUE,sep=",")
+data_shell_sizes <- read.table(file="Slipper Shell Data - Sheet1.csv",header=TRUE,sep=",")
 ```
 
+*THIS PROBABLY DIDN'T WORK*. R likely just told you "No such file or
+directory". That's because R doesn't know where to look yet. Remember
+how you made a new folder for this workshop? That's going to pay off
+now! We can tell R that we're working in a particular file location on
+the computer; R calls this a "working directory". If you navigate at the
+top of the window to
+`Session -> Set Working Directory -> Choose Directory ...`, R will open
+a window and let you click through your file system to show R where to
+go.
+
 #### TASK:
 
-> Use `read.table()` to import your recorded data.
+> Set the working directory of your R `Session` to the folder on your
+> computer where you've put the data file. Use `read.table()` to import
+> your recorded data.
 
-Alas! We have measured in millimeters but I'm going to ask you next to work
-in centimeters. The unit conversion for mm to cm is 10 mm = 1 cm.
+You can check if this worked using the `head()` command.
+
+
+```r
+head(data_shell_sizes)
+```
+
+```
+##   Length Width Height
+## 1   17.5  11.2    3.7
+## 2   16.2  10.0    2.5
+## 3   25.2  21.5    8.8
+```
+
+### Do additional computations from these data
+
+Alas! We have measured in millimeters but I'm going to ask you next to
+work in centimeters. The unit conversion for mm to cm is 10 mm = 1 cm.
 
 #### TASK:
 
-> Convert the measurements from milimeters into centimeters and store in a
-> second data.frame.
+> Convert the measurements from milimeters into centimeters, storing
+> these as additional columns in the data.frame.
 
 Now that we have centimeters, we can calculate volume in cubic
 centimeters. To do this, you'll need to make some approximations about
@@ -995,10 +1041,10 @@ you think are most appropriate. Real shells are of course neither of
 these idealized shapes, but let's see how close we can get. After all,
 *all models are wrong, some are useful.*
 
-| Shape          | Formula                     |
-|----------------|-----------------------------|
-| Disc           | pi \* r\^2 \* h             |
-| Half-Ellipsoid | 2/3 pi \* l/2 \* w/2 \* h/2 |
+| Shape            | Formula                     |
+|------------------|-----------------------------|
+| Elliptical Disc  | pi × L/2 × W/2 × H/2        |
+| Half-Ellipsoid   | 2/3 × pi × L/2 × W/2 × H/2  |
 
 Recall: R knows the approximate value of pi:
 
@@ -1011,46 +1057,46 @@ pi
 ## [1] 3.141593
 ```
 
-While you do it, go ahead and make use of R data structures and descriptive variable
-names! If you come back a week later and just see
+While you do it, go ahead and make use of R data structures and
+descriptive variable names! If you come back a week later and just see
 
 
 ```r
 x1 <- 4.3
 x2 <- 1.2
 x3 <- 2.9
-y <- x1*x2*x3
+y <- pi*x1/2*x2/2*x3/2
 ```
 
-You stand a good chance at not actually remembering what that code was even about.
+You stand a good chance at not actually remembering what that code was
+even about.
 
-
+*NOTE* R code that you write in a script does not automatically execute when you hit enter/return, it simply creates a new line just like you were in Microsoft Word or Google Docs. You can run the entire "script" by hitting the "Source" button just to the top right of your script or you can highlight one or more lines and "Run". (Don't hesitate to ask for a demonstration!).
 
 #### TASK:
 
 > Use arithmetic to estimate the volume of each specimen you measured in
-> cubic centimeters. Store the estimated volume as a new column in the data frame
-> with your imported observations of length, width, and height.
+> cubic centimeters. Store the estimated volume as a new column in the
+> data frame with your imported observations of length, width, and
+> height.
 
-
-Aragonite has a density of 2.93 g/cc. However, mollusk shells aren't composed of pure aragonite 
-and are also porous, so they are less dense. Let's assume the shells have a density of 2.7 g/cc. 
-Use this to estimate the mass of each specimen.
+Aragonite has a density of 2.93 g/cc. However, mollusk shells aren't
+composed of pure aragonite and are also porous, so they are less dense.
+Let's assume the shells have a density of 2.7 g/cc. Use this to estimate
+the mass of each specimen.
 
 #### TASK:
 
 > Use this approximate density and the estimated volume of each specimen
-> to estimate their mass. Again, store this estimated mass as a new column
-> in the same data frame.
-
-
+> to estimate their mass. Again, store this estimated mass as a new
+> column in the same data frame.
 
 #### TASK:
 
-> Compare your results to  direct measurements of mass for each
-specimen. Collect this new data in the same spreadsheet, adding another column,
-then display the data in a graph (see below). How close are the
-estimates? Does there appear to be a systematic bias?
+> Compare your results to direct measurements of mass for each specimen.
+> Collect this new data in the same spreadsheet, adding another column,
+> then display the data in a graph (see below). How close are the
+> estimates? Does there appear to be a systematic bias?
 
 HINT 1: You can create a basic x-y scatter plot in R using the command
 `plot(x,y)` where `x` and `y` are vectors of the same length. If you
@@ -1059,15 +1105,13 @@ want to dress it up a bit you can add a "1-1" line afterwards using
 additional arguments to fancy it up, like a dotted line type with
 `lty=2` and a red color with `color='red'`.
 
-
 ## If you have time
 
 ### Option 1: plotting with a more advanced package
 
-
-Alternatively, you can create a basic x-y scatter plot using the
-vaunted `ggplot2` package. `ggplot2` uses a grammer of graphics (hence `gg`)
-to specify how a plot is built of sequential commands and layers "added"
+Alternatively, you can create a basic x-y scatter plot using the vaunted
+`ggplot2` package. `ggplot2` uses a grammer of graphics (hence `gg`) to
+specify how a plot is built of sequential commands and layers "added"
 together.
 
 First, you need to make sure ggplot2 is installed.
@@ -1077,8 +1121,8 @@ First, you need to make sure ggplot2 is installed.
 install.packages("ggplot2")
 ```
 
-Once you have installed a package, you also need to tell R you want to use it
-in the current session.
+Once you have installed a package, you also need to tell R you want to
+use it in the current session.
 
 
 ```r
@@ -1086,23 +1130,29 @@ library("ggplot2")
 ```
 
 Now, for a basic `ggplot2` command you'll need to first specify which
-variables you're working with through a `mapping` arguement, then the style
-of plot you want made from them. Try `ggplot(mydata,mapping=aes(x,y))) + geom_point()` 
-where `x` and `y` are now the names of the data columns in `mydata`. If you
-want to dress it up a bit you can add a "1-1" line afterwards using
+variables you're working with through a `mapping` arguement, then the
+style of plot you want made from them. Try
+`ggplot(mydata,mapping=aes(x,y))) + geom_point()` where `x` and `y` are
+now the names of the data columns in `mydata`. If you want to dress it
+up a bit you can add a "1-1" line afterwards using
 `+ geom_abline(aes(intercept=0,slope=1),lty=2,color="red")`.
-
 
 ### Option 2: dig deeper into geometry and scaling
 
-
-In fisheries, it is often much easier to measure length of individuals than many other related variables of interest like age or weight. Allometric scaling relationships are a way to parameterize relationships between variables to estimate unmeasured variables from length (or in other cases, mass). Let's look at the relationship between length and mass for the shells.
+In fisheries, it is often much easier to measure length of individuals
+than many other related variables of interest like age or weight.
+Allometric scaling relationships are a way to parameterize relationships
+between variables to estimate unmeasured variables from length (or in
+other cases, mass). Let's look at the relationship between length and
+mass for the shells.
 
 #### TASK:
 
-> Create graph that shows observed mass as a function of length for the specimens you measured, possibly including
-> measurement data from other students if you like.
-> Does mass look to be predictable from just length? Do you expect this relationship to be linear? Does it appear linear?
+> Create graph that shows observed mass as a function of length for the
+> specimens you measured, possibly including measurement data from other
+> students if you like. Does mass look to be predictable from just
+> length? Do you expect this relationship to be linear? Does it appear
+> linear?
 
 ## Reflection Questions
 
@@ -1117,7 +1167,6 @@ In fisheries, it is often much easier to measure length of individuals than many
 
 ## Appendix: Resources
 
-
 Portions of this material were adapted from:
 
 > François Michonneau, Tracy Teal, Auriel Fournier, Brian Seok, Adam
@@ -1128,9 +1177,13 @@ Portions of this material were adapted from:
 
 More on Crepidula fornicata:
 
-Henry, J. Q., & Lyons, D. C. (2016). Molluscan models: Crepidula fornicata. Current Opinion in Genetics & Development, 39, 138-148. https://doi.org/10.1016/j.gde.2016.05.021
+Henry, J. Q., & Lyons, D. C. (2016). Molluscan models: Crepidula
+fornicata. Current Opinion in Genetics & Development, 39, 138-148.
+<https://doi.org/10.1016/j.gde.2016.05.021>
 
 Global change dimensions of mollusk shell properties:
 
-Gizzi, F., Caccia, M., Simoncini, G. et al. Shell properties of commercial clam Chamelea gallina are influenced by temperature and solar radiation along a wide latitudinal gradient. Sci Rep 6, 36420 (2016). https://doi.org/10.1038/srep36420
-
+Gizzi, F., Caccia, M., Simoncini, G. et al. Shell properties of
+commercial clam Chamelea gallina are influenced by temperature and solar
+radiation along a wide latitudinal gradient. Sci Rep 6, 36420 (2016).
+<https://doi.org/10.1038/srep36420>
