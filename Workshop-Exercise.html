@@ -886,6 +886,16 @@ exercise. You will collect data on the length, width, and height of
 slipper shells, use a few mathematical formula (dare we call it a
 model!) to make predictions about the weight of those shells, then weigh
 the shells to validate the model predictions.</p>
+<div id="do-some-housekeeping" class="section level3">
+<h3>Do some housekeeping</h3>
+<p>Very quickly when using R or other coding languages to do data
+science you’ll find your work is involving several different pieces.
+Before you get any further, it would be good to make a new folder
+somewhere on your computer for this workshop. Our recommendation is to
+either do this on your Desktop or in your Documents. You can name it
+something like “BUMP-R-workshop” (or whatever else makes sense to
+you).</p>
+</div>
 <div id="open-a-new-r-script" class="section level3">
 <h3>Open a new R script</h3>
 <p>Just like in other labs, it’s good to do your work in some sort of
@@ -893,14 +903,14 @@ notebook. Here, we will keep it simple and make a blank R-script in
 Rstudio. While we can do all the calculations entering line-by-line into
 the console, writing the whole sequence of steps down in order minimizes
 error and maximizes the ease of reproducing. In some Marine Semester
-classes, you may be introduced to a more elegant notebook format with
-Rmarkdown.</p>
+classes, you may also be introduced to a slightly fancier notebook
+format with Rmarkdown.</p>
 <p>There are a few ways to get a new script open in RStudio. There’s a
 small green “+” sign button in the upper left you can use or you can
 navigate to the file menu and select
 <code>New File -&gt; R Script</code>. Your new, blank file should appear
-in the upper left pane of RStudio. Go ahead and save it in your
-documents folder (or where-ever you prefer) and use a name like
+in the upper left pane of RStudio. Go ahead and save it in the
+“BUMP-R-workshop” folder you just made and use a name like
 “R-intro-workshop_exercise.R”.</p>
 </div>
 <div id="collect-and-record-data" class="section level3">
@@ -948,7 +958,10 @@ turn around and load into R.</p>
 <div id="task-1" class="section level4">
 <h4>TASK:</h4>
 <blockquote>
-<p>Download the data in your Google Sheet as a “csv” file.</p>
+<p>Download the data in your Google Sheet as a “csv” file. Once you’ve
+downloaded, drag-and-drop (move) the file from your downloads to the
+“BUMP-R-workshop” folder using the normal file system on your
+computer.</p>
 </blockquote>
 </div>
 </div>
@@ -967,21 +980,42 @@ the file name. The other important arguments here are
 if the data coming in has headers (it should) and what character is uses
 to separate the values in a row. We’ve made a “csv”, so the separator is
 <code>&quot;,&quot;</code>.</p>
-<pre class="r"><code>data_shell_sizes &lt;- read.table(file=&quot;myfile.csv&quot;,header=TRUE,sep=&quot;,&quot;)</code></pre>
+<pre class="r"><code>data_shell_sizes &lt;- read.table(file=&quot;Slipper Shell Data - Sheet1.csv&quot;,header=TRUE,sep=&quot;,&quot;)</code></pre>
+<p><em>THIS PROBABLY DIDN’T WORK</em>. R likely just told you “No such
+file or directory”. That’s because R doesn’t know where to look yet.
+Remember how you made a new folder for this workshop? That’s going to
+pay off now! We can tell R that we’re working in a particular file
+location on the computer; R calls this a “working directory”. If you
+navigate at the top of the window to
+<code>Session -&gt; Set Working Directory -&gt; Choose Directory ...</code>,
+R will open a window and let you click through your file system to show
+R where to go.</p>
 <div id="task-2" class="section level4">
 <h4>TASK:</h4>
 <blockquote>
-<p>Use <code>read.table()</code> to import your recorded data.</p>
+<p>Set the working directory of your R <code>Session</code> to the
+folder on your computer where you’ve put the data file. Use
+<code>read.table()</code> to import your recorded data.</p>
 </blockquote>
+<p>You can check if this worked using the <code>head()</code>
+command.</p>
+<pre class="r"><code>head(data_shell_sizes)</code></pre>
+<pre><code>##   Length Width Height
+## 1   17.5  11.2    3.7
+## 2   16.2  10.0    2.5
+## 3   25.2  21.5    8.8</code></pre>
+</div>
+</div>
+<div id="do-additional-computations-from-these-data" class="section level3">
+<h3>Do additional computations from these data</h3>
 <p>Alas! We have measured in millimeters but I’m going to ask you next
 to work in centimeters. The unit conversion for mm to cm is 10 mm = 1
 cm.</p>
-</div>
 <div id="task-3" class="section level4">
 <h4>TASK:</h4>
 <blockquote>
-<p>Convert the measurements from milimeters into centimeters and store
-in a second data.frame.</p>
+<p>Convert the measurements from milimeters into centimeters, storing
+these as additional columns in the data.frame.</p>
 </blockquote>
 <p>Now that we have centimeters, we can calculate volume in cubic
 centimeters. To do this, you’ll need to make some approximations about
@@ -998,12 +1032,12 @@ these idealized shapes, but let’s see how close we can get. After all,
 </thead>
 <tbody>
 <tr class="odd">
-<td>Disc</td>
-<td>pi * r^2 * h</td>
+<td>Elliptical Disc</td>
+<td>pi × L/2 × W/2 × H/2</td>
 </tr>
 <tr class="even">
 <td>Half-Ellipsoid</td>
-<td>2/3 pi * l/2 * w/2 * h/2</td>
+<td>2/3 × pi × L/2 × W/2 × H/2</td>
 </tr>
 </tbody>
 </table>
@@ -1016,9 +1050,15 @@ see</p>
 <pre class="r"><code>x1 &lt;- 4.3
 x2 &lt;- 1.2
 x3 &lt;- 2.9
-y &lt;- x1*x2*x3</code></pre>
+y &lt;- pi*x1/2*x2/2*x3/2</code></pre>
 <p>You stand a good chance at not actually remembering what that code
 was even about.</p>
+<p><em>NOTE</em> R code that you write in a script does not
+automatically execute when you hit enter/return, it simply creates a new
+line just like you were in Microsoft Word or Google Docs. You can run
+the entire “script” by hitting the “Source” button just to the top right
+of your script or you can highlight one or more lines and “Run”. (Don’t
+hesitate to ask for a demonstration!).</p>
 </div>
 <div id="task-4" class="section level4">
 <h4>TASK:</h4>
