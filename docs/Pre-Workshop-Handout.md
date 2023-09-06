@@ -1,7 +1,7 @@
 ---
 title: "Pre-Workshop Handout"
 subtitle: "Preparing to use R"
-date: "Fall 2023"
+date: "2023"
 author: 
 - original by François Michonneau & Auriel Fournier (Data Carpentry)
 - modified by Ethan Deyle (BU Marine Semester)
