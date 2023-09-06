@@ -8,3 +8,6 @@ Welcome to the Intro-to-R Workshop repository. The materials here-in are based o
 Once R and R-studio are working, learners should proceed to the Workshop Exercise:
 
 * [Workshop Exercise](https://github.com/BUMP-In-Silica/Marine-Semester_Intro-to-R/blob/main/docs/Workshop-Exercise.md)
+
+
+* [Google Sheets Step-by-Step](https://bump-in-silica.github.io/Marine-Semester_Intro-to-R/03%20Google-Sheets%20Step-by-Step.html)
