@@ -1,7 +1,7 @@
 ---
 title: "Intro-to-R Workshop Exercise"
 author: "ER Deyle"
-date: "Fall 2023"
+date: "2023"
 subtitle: Dealing with Data
 output:
   html_document:
