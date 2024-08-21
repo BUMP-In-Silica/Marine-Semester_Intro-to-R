@@ -1,7 +1,7 @@
 ---
 title: "Pre-Workshop Handout"
 subtitle: "Preparing to use R"
-date: "2023"
+date: "2024"
 author: 
 - original by François Michonneau & Auriel Fournier (Data Carpentry)
 - modified by Ethan Deyle (BU Marine Semester)
@@ -114,8 +114,7 @@ command into the __Console__ window (look for a blinking cursor on the bottom le
 then press the <kbd>Enter</kbd> (Windows and Linux) or <kbd>Return</kbd> (MacOS) 
 to execute the command.
 
-
-```r
+```{r eval=FALSE}
 install.packages("ggplot2")
 ```
 
@@ -127,8 +126,7 @@ R tries to download and install the packages on your machine.
 When the installation has finished, you can try to load the
 packages by pasting the following code into the console:
 
-
-```r
+```{r eval=FALSE}
 library(ggplot2)
 ```
 
