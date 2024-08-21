@@ -1,7 +1,7 @@
 # Intro-to-R Workshop
-## Marine Semester 2023
+## Marine Semester 2024
 
-Welcome to the Intro-to-R Workshop repository. The materials here-in are based on the [R-ecology-lesson](https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html) from datacarpentry.org. Before beginning workshop exercises, learners will need to have R and R-studio installed on their machine. Those are given in the following document:
+Welcome to the Intro-to-R Workshop repository. The materials here-in are based on the [2019.06.1 Version](https://zenodo.org/records/12684301) of [R-ecology-lesson](https://datacarpentry.org/R-ecology-lesson/) from datacarpentry.org. Before beginning workshop exercises, learners will need to have R and R-studio installed on their machine. Those are given in the following document:
 
 * [Pre-Workshop Handout](https://bump-in-silica.github.io/Marine-Semester_Intro-to-R/Pre-Workshop-Handout.html)
 
