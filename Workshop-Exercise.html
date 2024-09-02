@@ -352,13 +352,15 @@ display: none;
 <h1 class="title toc-ignore">Intro-to-R Workshop Exercise</h1>
 <h3 class="subtitle">Dealing with Data</h3>
 <h4 class="author">ER Deyle</h4>
-<h4 class="date">Fall 2023</h4>
+<h4 class="date">Fall 2024</h4>
 
 </div>
 
 
+<p><br> <br></p>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
+<hr />
 <div id="purpose" class="section level2">
 <h2>Purpose</h2>
 <p>The primary objective of this workshop is to get every BU Marine
@@ -397,12 +399,14 @@ frames</li>
 console, as well as doing a few activities. In the second half you will
 do a short exercise to put these basic pieces together to do a bit of
 marine science and examining the relationship between the length and
-weight of gastropod shells that BU Ph.D. student Daniel Wuitchik is
-studying for his dissertation.</p>
+weight of gastropod shells that recent BU Ph.D. alum Dr. Daniel Wuitchik
+studied for his dissertation.</p>
+<p><br> <br> <br></p>
 </div>
 </div>
 <div id="variables-and-vectors" class="section level1">
 <h1>Variables and Vectors</h1>
+<hr />
 <div id="creating-objects-in-r" class="section level2">
 <h2>Creating objects in R</h2>
 <p>You can get output from R simply by typing math in the console. In R
@@ -467,8 +471,8 @@ package to automatically check for issues in the styling of your
 code.</li>
 </ul>
 <blockquote>
-<h3 id="objects-vs.-variables">Objects vs. variables</h3>
-<p>What are known as <code>objects</code> in <code>R</code> are known as
+<p><strong>Objects vs. variables:</strong> What are known as
+<code>objects</code> in <code>R</code> are known as
 <code>variables</code> in many other programming languages. Depending on
 the context, <code>object</code> and <code>variable</code> can have
 drastically different meanings. However, in this lesson, the two words
@@ -499,6 +503,7 @@ pounds in a new object, <code>weight_lb</code>:</p>
 <pre class="r"><code>weight_kg &lt;- 100</code></pre>
 <p>What do you think is the current content of the object
 <code>weight_lb</code>? 126.5 or 220?</p>
+<p><br></p>
 <div id="activity" class="section level4">
 <h4>ACTIVITY:</h4>
 <blockquote>
@@ -509,6 +514,7 @@ mass &lt;- mass * 2.0      # mass?
 age  &lt;- age - 20        # age?
 mass_index &lt;- mass/age  # mass_index?</code></pre>
 </blockquote>
+<p><br></p>
 </div>
 </div>
 <div id="functions-of-variables" class="section level2">
@@ -531,8 +537,8 @@ This function takes one argument, other functions might take
 several.</p>
 <p>The return ‘value’ of a function need not be numerical (like that of
 <code>sqrt()</code>), and it also does not need to be a single item: it
-can be a set of things, or even a dataset. We’ll see that when we read
-data files into R.</p>
+can be a set of numbers, a filename, or even a dataset. We’ll see a good
+example later when we read data files into R.</p>
 <p>Arguments can be anything, not only numbers or filenames, but also
 other objects. Exactly what each argument means differs per function,
 and must be looked up in the documentation (see below). Some functions
@@ -652,14 +658,21 @@ function and inputting your vector as the argument.</p>
 uses. Other important ones are lists (<code>list</code>), matrices
 (<code>matrix</code>), data frames (<code>data.frame</code>), factors
 (<code>factor</code>) and arrays (<code>array</code>).</p>
+<p><br></p>
 <div id="activity-1" class="section level4">
 <h4>ACTIVITY:</h4>
 <blockquote>
 <h3 id="challenge">Challenge</h3>
 <ul>
-<li><p>We’ve seen that atomic vectors can be of type character, numeric
-(or double), integer, and logical. But what happens if we try to mix
-these types in a single vector?</p></li>
+<li>We’ve seen that atomic vectors can be of type character, numeric (or
+double), integer, and logical. But what happens if we try to mix these
+types in a single vector?</li>
+</ul>
+</blockquote>
+<p><strong>Answer:</strong> (highlight to read) <span style="color: white;">R implicitly converts them to all be the same
+type</span></p>
+<blockquote>
+<ul>
 <li><p>What will happen in each of these examples? (hint: use
 <code>class()</code> to check the data type of your objects):</p>
 <pre class="r"><code>num_char &lt;- c(1, 2, 3, &quot;a&quot;)
@@ -667,18 +680,35 @@ num_logical &lt;- c(1, 2, 3, TRUE)
 char_logical &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, TRUE)
 tricky &lt;- c(1, 2, 3, &quot;4&quot;)</code></pre></li>
 <li><p>Why do you think it happens?</p></li>
+</ul>
+</blockquote>
+<p><strong>Answer:</strong> (highlight to read) <span style="color: white;">Vectors can be of only one data type. R tries to
+convert (coerce) the content of this vector to find a ‘common
+denominator’ that doesn’t lose any information.</span></p>
+<blockquote>
+<ul>
 <li><p>How many values in <code>combined_logical</code> are
 <code>&quot;TRUE&quot;</code> (as a character) in the following example (reusing
 the 2 <code>..._logical</code>s from above):</p>
 <pre class="r"><code>combined_logical &lt;- c(num_logical, char_logical)</code></pre></li>
-<li><p>You’ve probably noticed that objects of different types get
+</ul>
+</blockquote>
+<p><strong>Answer:</strong> (highlight to read) <span style="color: white;">Only one. There is no memory of past data types,
+and the coercion happens the first time the vector is evaluated.
+Therefore, the TRUE in ‘num_logical’ gets converted into a 1 before it
+gets converted into ‘1’ in combined_logical.</span></p>
+<blockquote>
+<ul>
+<li>You’ve probably noticed that objects of different types get
 converted into a single, shared type within a vector. In R, we call
 converting objects from one class into another class <em>coercion</em>.
 These conversions happen according to a hierarchy, whereby some types
 get preferentially coerced into other types. Can you draw a diagram that
-represents the hierarchy of how these data types are coerced?</p></li>
+represents the hierarchy of how these data types are coerced?</li>
 </ul>
 </blockquote>
+<p><strong>Answer:</strong> (highlight to read) <span style="color: white;">logical → numeric → character ← logical</span></p>
+<p><br></p>
 </div>
 </div>
 <div id="subsetting-vectors" class="section level2">
@@ -875,10 +905,12 @@ supply data to functions that perform statistical tests. They are also
 the way data will often be loaded into R, e.g. if you are reading in
 table from an excel or google spreadsheet. And… that is how we will
 proceed today!</p>
-<hr />
+<p><br> <br> <br></p>
 </div>
-<div id="putting-it-all-together" class="section level2">
-<h2>Putting it all together</h2>
+</div>
+<div id="putting-it-all-together" class="section level1">
+<h1>Putting it all together</h1>
+<hr />
 <p>At this point you should have the basic idea for how to create
 variables in R and perform basic arithmetic. Now let’s put it all
 together to do some marine science in the form of a paired-down lab
@@ -915,12 +947,12 @@ in the upper left pane of RStudio. Go ahead and save it in the
 </div>
 <div id="collect-and-record-data" class="section level3">
 <h3>Collect and record data</h3>
-<p>Courtesy of Dan Wuitchik, there are several sets of slipper shells
-available for you to measure. The samples are organized by collection
-site (Cape May, NJ to the tip of Maine) and need to be kept that way.
-Work with other students to measure the height, width, and length in mm.
-Make sure you all agree on which dimensions you’ll be calling “height”,
-“width”, and “length”!</p>
+<p>Courtesy of Dr. Dan Wuitchik, there are several sets of slipper
+shells available for you to measure. The samples are organized by
+collection site (Cape May, NJ to the tip of Maine) and need to be kept
+that way. Work with other students to measure the height, width, and
+length in mm. Make sure you all agree on which dimensions you’ll be
+calling “height”, “width”, and “length”!</p>
 <p>As you measure, you need to record the measurements. As always will
 be the case, there’s more than one option. Since everyone should be able
 to quickly access Google Sheets, let’s do it that way. Many of you will
@@ -963,6 +995,7 @@ downloaded, drag-and-drop (move) the file from your downloads to the
 “BUMP-R-workshop” folder using the normal file system on your
 computer.</p>
 </blockquote>
+<p><br></p>
 </div>
 </div>
 <div id="import-the-data-into-r" class="section level3">
@@ -1001,9 +1034,10 @@ folder on your computer where you’ve put the data file. Use
 command.</p>
 <pre class="r"><code>head(data_shell_sizes)</code></pre>
 <pre><code>##   Length Width Height
-## 1   17.5  11.2    3.7
-## 2   16.2  10.0    2.5
-## 3   25.2  21.5    8.8</code></pre>
+## 1  1.125 1.750  0.375
+## 2  1.000 1.625  0.250
+## 3  2.125 2.500  0.875</code></pre>
+<p><br></p>
 </div>
 </div>
 <div id="do-additional-computations-from-these-data" class="section level3">
@@ -1032,12 +1066,12 @@ these idealized shapes, but let’s see how close we can get. After all,
 </thead>
 <tbody>
 <tr class="odd">
-<td>Elliptical Disc</td>
-<td>pi × L/2 × W/2 × H/2</td>
+<td>Disc</td>
+<td>𝜋 × r² ×𝒽</td>
 </tr>
 <tr class="even">
 <td>Half-Ellipsoid</td>
-<td>2/3 × pi × L/2 × W/2 × H/2</td>
+<td>2/3 × 𝜋 × 𝓁/2 × 𝒽/2 × 𝒽/2</td>
 </tr>
 </tbody>
 </table>
@@ -1050,15 +1084,10 @@ see</p>
 <pre class="r"><code>x1 &lt;- 4.3
 x2 &lt;- 1.2
 x3 &lt;- 2.9
-y &lt;- pi*x1/2*x2/2*x3/2</code></pre>
+y &lt;- x1*x2*x3</code></pre>
 <p>You stand a good chance at not actually remembering what that code
 was even about.</p>
-<p><em>NOTE</em> R code that you write in a script does not
-automatically execute when you hit enter/return, it simply creates a new
-line just like you were in Microsoft Word or Google Docs. You can run
-the entire “script” by hitting the “Source” button just to the top right
-of your script or you can highlight one or more lines and “Run”. (Don’t
-hesitate to ask for a demonstration!).</p>
+<p><br></p>
 </div>
 <div id="task-4" class="section level4">
 <h4>TASK:</h4>
@@ -1096,7 +1125,7 @@ add a “1-1” line afterwards using <code>abline(a=0,b=1)</code>. Type
 <code>?abline</code> to see the syntax. You can pass additional
 arguments to fancy it up, like a dotted line type with
 <code>lty=2</code> and a red color with <code>color=&#39;red&#39;</code>.</p>
-</div>
+<p><br></p>
 </div>
 </div>
 <div id="if-you-have-time" class="section level2">
