@@ -1,19 +1,23 @@
 ---
 title: "Intro-to-R Workshop Exercise"
-author: "ER Deyle"
-date: "Fall 2024"
-subtitle: Dealing with Data
+author: "\\vspace{-1cm} ER Deyle"
+subtitle: "Fall 2024"
 output:
-  html_document:
-    keep_md: true
   pdf_document: 
     latex_engine: xelatex
+  html_document:
+    keep_md: true
 header-includes:
     - \usepackage[T1]{fontenc}
 editor_options:
   markdown:
     wrap: 72
 ---
+
+\fontsize{11}{13}
+\selectfont
+
+\vspace{-1cm}
 
 ```{r setup, include=FALSE}
 library(knitr)
@@ -39,7 +43,6 @@ hide_text <- function(x) {
 <br>
 
 # Introduction
-***
 ## Purpose
 
 The primary objective of this workshop is to get every BU Marine
@@ -84,7 +87,6 @@ studied for his dissertation.
 <br>
 
 # Variables and Vectors
-***
 
 ## Creating objects in R
 
@@ -454,11 +456,11 @@ important ones are lists (`list`), matrices (`matrix`), data frames
 >     ```
 
 
-**Answer:** (highlight to read) 
-`r hide_text("Only one. There is no memory of past data types, and the coercion happens the
-first time the vector is evaluated. Therefore, the TRUE in 'num_logical'
-gets converted into a 1 before it gets converted into '1' in
-combined_logical.")`
+**Answer:** (highlight to read)
+`r hide_text("Only one. There is no memory of past data types, and the coercion
+happens the first time a vector is evaluated. Therefore, the TRUE in 'num-logical'
+get converted into the digit 1 before it gets converted into the character '1'
+in 'combined-logical'.")`
  
 
 > -   You've probably noticed that objects of different types get
@@ -471,7 +473,7 @@ combined_logical.")`
 >
 
 **Answer:** (highlight to read) 
-`r hide_text("logical &#8594; numeric &#8594; character &#8592; logical")`
+`r hide_text("logical → numeric → character ←  logical")`
 
 <br>
 
@@ -632,7 +634,7 @@ treated as the columns of a table. Let's back up to that R object `trees`
 we just used to do a quick linear regression. You can inspect data.frame
 objects a number of ways, including just asking the console to print it.
 
-```{r}
+```{r,results="hide"}
 trees
 ```
 
@@ -714,7 +716,7 @@ google spreadsheet. And... that is how we will proceed today!
 <br>
 
 # Putting it all together
-***
+
 
 At this point you should have the basic idea for how to create variables
 in R and perform basic arithmetic. Now let's put it all together to do

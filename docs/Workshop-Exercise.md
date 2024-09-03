@@ -541,8 +541,8 @@ important ones are lists (`list`), matrices (`matrix`), data frames
 
 **Answer:** (highlight to read) 
 <span style='color: white;'>Only one. There is no memory of past data types, and the coercion happens the
-first time the vector is evaluated. Therefore, the TRUE in 'num_logical'
-gets converted into a 1 before it gets converted into '1' in
+first time the vector is evaluated. Therefore, the TRUE in num_logical
+gets converted into the digit 1 before it gets converted into the character 1 in
 combined_logical.</span>
  
 
@@ -556,7 +556,7 @@ combined_logical.</span>
 >
 
 **Answer:** (highlight to read) 
-<span style='color: white;'>logical &#8594; numeric &#8594; character &#8592; logical</span>
+<span style='color: white;'>logical → numeric → character ←  logical</span>
 
 <br>
 
