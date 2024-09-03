@@ -1,8 +1,7 @@
 ---
 title: "Intro-to-R Workshop Exercise"
-author: "ER Deyle"
-date: "Fall 2024"
-subtitle: Dealing with Data
+author: "\\vspace{-1cm} ER Deyle"
+subtitle: "Fall 2024"
 output:
   html_document:
     keep_md: true
@@ -15,13 +14,17 @@ editor_options:
     wrap: 72
 ---
 
+\fontsize{11}{13}
+\selectfont
+
+\vspace{-1cm}
+
 
 
 <br>
 <br>
 
 # Introduction
-***
 ## Purpose
 
 The primary objective of this workshop is to get every BU Marine
@@ -66,7 +69,6 @@ studied for his dissertation.
 <br>
 
 # Variables and Vectors
-***
 
 ## Creating objects in R
 
@@ -539,11 +541,11 @@ important ones are lists (`list`), matrices (`matrix`), data frames
 >     ```
 
 
-**Answer:** (highlight to read) 
-<span style='color: white;'>Only one. There is no memory of past data types, and the coercion happens the
-first time the vector is evaluated. Therefore, the TRUE in num_logical
-gets converted into the digit 1 before it gets converted into the character 1 in
-combined_logical.</span>
+**Answer:** (highlight to read)
+<span style='color: white;'>Only one. There is no memory of past data types, and the coercion
+happens the first time a vector is evaluated. Therefore, the TRUE in 'num-logical'
+get converted into the digit 1 before it gets converted into the character '1'
+in 'combined-logical'.</span>
  
 
 > -   You've probably noticed that objects of different types get
@@ -761,41 +763,6 @@ objects a number of ways, including just asking the console to print it.
 trees
 ```
 
-```
-##    Girth Height Volume
-## 1    8.3     70   10.3
-## 2    8.6     65   10.3
-## 3    8.8     63   10.2
-## 4   10.5     72   16.4
-## 5   10.7     81   18.8
-## 6   10.8     83   19.7
-## 7   11.0     66   15.6
-## 8   11.0     75   18.2
-## 9   11.1     80   22.6
-## 10  11.2     75   19.9
-## 11  11.3     79   24.2
-## 12  11.4     76   21.0
-## 13  11.4     76   21.4
-## 14  11.7     69   21.3
-## 15  12.0     75   19.1
-## 16  12.9     74   22.2
-## 17  12.9     85   33.8
-## 18  13.3     86   27.4
-## 19  13.7     71   25.7
-## 20  13.8     64   24.9
-## 21  14.0     78   34.5
-## 22  14.2     80   31.7
-## 23  14.5     74   36.3
-## 24  16.0     72   38.3
-## 25  16.3     77   42.6
-## 26  17.3     81   55.4
-## 27  17.5     82   55.7
-## 28  17.9     80   58.3
-## 29  18.0     80   51.5
-## 30  18.0     80   51.0
-## 31  20.6     87   77.0
-```
-
 We live in the era of big data, though! Even 31 rows can fill up your screen
 quickly. Often, just a glance is enough to check out a data.frame. Enter the
 `head()` command which lets you peak at the first few rows.
@@ -928,7 +895,7 @@ google spreadsheet. And... that is how we will proceed today!
 <br>
 
 # Putting it all together
-***
+
 
 At this point you should have the basic idea for how to create variables
 in R and perform basic arithmetic. Now let's put it all together to do
