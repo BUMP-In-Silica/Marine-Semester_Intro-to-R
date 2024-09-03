@@ -3,10 +3,10 @@ title: "Intro-to-R Workshop Exercise"
 author: "\\vspace{-1cm} ER Deyle"
 subtitle: "Fall 2024"
 output:
-  pdf_document: 
-    latex_engine: xelatex
   html_document:
     keep_md: true
+  pdf_document: 
+    latex_engine: xelatex
 header-includes:
     - \usepackage[T1]{fontenc}
 editor_options:
@@ -48,11 +48,13 @@ hide_text <- function(x) {
 The primary objective of this workshop is to get every BU Marine
 Semester student comfortable with using R to do simple tasks that come
 up in many courses as you collect, analyze, and visualize data. To this
-end, we're going to spend a bit of the time discussing data structures.
-R doesn't make this nearly as complicated as some other coding
-environments, but ultimately all computational science has to deal with
-translating numbers and information we can interpret as scientists into
-the sequence of 1's and 0's that computers ultimate must work with. To
+end, we're going to spend a bit of the time discussing data structures. We work
+with a lot of different types of data as scientists: whole numbers when we are
+counting, decimal numbers when we are weighing, not to mention dates, 
+scientific names, geo-spatial coordinates, etc. Computers, however, only
+ultimately understand 1's and 0's, so whenever we go about doing computational
+science we have to bridge this gap whether we know it or not. Luckily, R doesn't
+make this nearly as complicated as some other coding environments. To
 get everyone introduced to the basics in R, we're going to go from:
 
 -   a variable (object) with a single value
@@ -60,10 +62,12 @@ get everyone introduced to the basics in R, we're going to go from:
 -   list objects with multiple values of different types
 -   data frame objects that treat a list of vectors as columns of a table
 
-While data observations you make (like today the length, width, and
-height of gastropod shells) can be stored in the simpler forms, the
-functions you may likely use to analyze data (say, perform a linear
-regression or analysis of variance) will generally return lists or data
+This last structure is especially useful to us as scientists, since our samples,
+measurements, and observations usually come with more than one variable. 
+While data observations you make today-- the length, width, and
+height of gastropod shells-- **can** be stored in the simpler forms, the
+functions you likely will use to analyze data-- e.g. to perform a linear
+regression or analysis of variance-- will generally return lists or data
 frames.
 
 ## Learning Outcomes
@@ -838,7 +842,7 @@ these idealized shapes, but let's see how close we can get. After all,
 | Shape          | Formula                     |
 |----------------|-----------------------------|
 | Disc           | 𝜋 × r&sup2; ×𝒽         |
-| Half-Ellipsoid | 2/3 × 𝜋 × 𝓁/2 × 𝒽/2 × 𝒽/2 |
+| Half-Ellipsoid | 2/3 × 𝜋 × 𝓁/2 × 𝒽/2 × 𝓌/2 |
 
 Recall: R knows the approximate value of pi:
 
