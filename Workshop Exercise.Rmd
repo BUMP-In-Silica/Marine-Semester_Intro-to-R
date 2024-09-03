@@ -842,7 +842,7 @@ these idealized shapes, but let's see how close we can get. After all,
 | Shape          | Formula                     |
 |----------------|-----------------------------|
 | Disc           | 𝜋 × r&sup2; ×𝒽         |
-| Half-Ellipsoid | 2/3 × 𝜋 × 𝓁/2 × 𝒽/2 × 𝓌/2 |
+| Half-Ellipsoid | 2/3 × 𝜋 × 𝒽 × 𝓁/2 × 𝓌/2 |
 
 Recall: R knows the approximate value of pi:
 
