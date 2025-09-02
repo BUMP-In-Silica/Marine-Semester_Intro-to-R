@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="ER Deyle" />
+<meta name="author" content=" ER Deyle" />
 
 
 <title>Intro-to-R Workshop Exercise</title>
@@ -350,9 +350,9 @@ display: none;
 
 
 <h1 class="title toc-ignore">Intro-to-R Workshop Exercise</h1>
-<h3 class="subtitle">Dealing with Data</h3>
-<h4 class="author">ER Deyle</h4>
-<h4 class="date">Fall 2024</h4>
+<h3 class="subtitle">Fall 2025</h3>
+<h4 class="author"><br />
+ER Deyle</h4>
 
 </div>
 
@@ -360,18 +360,20 @@ display: none;
 <p><br> <br></p>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<hr />
 <div id="purpose" class="section level2">
 <h2>Purpose</h2>
 <p>The primary objective of this workshop is to get every BU Marine
 Semester student comfortable with using R to do simple tasks that come
 up in many courses as you collect, analyze, and visualize data. To this
 end, we’re going to spend a bit of the time discussing data structures.
-R doesn’t make this nearly as complicated as some other coding
-environments, but ultimately all computational science has to deal with
-translating numbers and information we can interpret as scientists into
-the sequence of 1’s and 0’s that computers ultimate must work with. To
-get everyone introduced to the basics in R, we’re going to go from:</p>
+We work with a lot of different types of data as scientists: whole
+numbers when we are counting, decimal numbers when we are weighing, not
+to mention dates, scientific names, geo-spatial coordinates, etc.
+Computers, however, only ultimately understand 1’s and 0’s, so whenever
+we go about doing computational science we have to bridge this gap
+whether we know it or not. Luckily, R doesn’t make this nearly as
+complicated as some other coding environments. To get everyone
+introduced to the basics in R, we’re going to progress through:</p>
 <ul>
 <li>a variable (object) with a single value</li>
 <li>vector objects with multiple values of the same type</li>
@@ -379,11 +381,13 @@ get everyone introduced to the basics in R, we’re going to go from:</p>
 <li>data frame objects that treat a list of vectors as columns of a
 table</li>
 </ul>
-<p>While data observations you make (like today the length, width, and
-height of gastropod shells) can be stored in the simpler forms, the
-functions you may likely use to analyze data (say, perform a linear
-regression or analysis of variance) will generally return lists or data
-frames.</p>
+<p>This last structure is especially useful to us as scientists, since
+our samples, measurements, and observations usually come with more than
+one variable. While data observations you make today– the length, width,
+and height of gastropod shells– <strong>can</strong> be stored in the
+simpler forms, the functions you likely will use to analyze data–
+e.g. to perform a linear regression or analysis of variance– will
+generally return lists or data frames.</p>
 </div>
 <div id="learning-outcomes" class="section level2">
 <h2>Learning Outcomes</h2>
@@ -406,7 +410,6 @@ studied for his dissertation.</p>
 </div>
 <div id="variables-and-vectors" class="section level1">
 <h1>Variables and Vectors</h1>
-<hr />
 <div id="creating-objects-in-r" class="section level2">
 <h2>Creating objects in R</h2>
 <p>You can get output from R simply by typing math in the console. In R
@@ -694,9 +697,10 @@ the 2 <code>..._logical</code>s from above):</p>
 </ul>
 </blockquote>
 <p><strong>Answer:</strong> (highlight to read) <span style="color: white;">Only one. There is no memory of past data types,
-and the coercion happens the first time the vector is evaluated.
-Therefore, the TRUE in ‘num_logical’ gets converted into a 1 before it
-gets converted into ‘1’ in combined_logical.</span></p>
+and the coercion happens the first time a vector is evaluated.
+Therefore, the TRUE in ‘num-logical’ get converted into the digit 1
+before it gets converted into the character ‘1’ in
+‘combined-logical’.</span></p>
 <blockquote>
 <ul>
 <li>You’ve probably noticed that objects of different types get
@@ -806,38 +810,6 @@ that R object <code>trees</code> we just used to do a quick linear
 regression. You can inspect data.frame objects a number of ways,
 including just asking the console to print it.</p>
 <pre class="r"><code>trees</code></pre>
-<pre><code>##    Girth Height Volume
-## 1    8.3     70   10.3
-## 2    8.6     65   10.3
-## 3    8.8     63   10.2
-## 4   10.5     72   16.4
-## 5   10.7     81   18.8
-## 6   10.8     83   19.7
-## 7   11.0     66   15.6
-## 8   11.0     75   18.2
-## 9   11.1     80   22.6
-## 10  11.2     75   19.9
-## 11  11.3     79   24.2
-## 12  11.4     76   21.0
-## 13  11.4     76   21.4
-## 14  11.7     69   21.3
-## 15  12.0     75   19.1
-## 16  12.9     74   22.2
-## 17  12.9     85   33.8
-## 18  13.3     86   27.4
-## 19  13.7     71   25.7
-## 20  13.8     64   24.9
-## 21  14.0     78   34.5
-## 22  14.2     80   31.7
-## 23  14.5     74   36.3
-## 24  16.0     72   38.3
-## 25  16.3     77   42.6
-## 26  17.3     81   55.4
-## 27  17.5     82   55.7
-## 28  17.9     80   58.3
-## 29  18.0     80   51.5
-## 30  18.0     80   51.0
-## 31  20.6     87   77.0</code></pre>
 <p>We live in the era of big data, though! Even 31 rows can fill up your
 screen quickly. Often, just a glance is enough to check out a
 data.frame. Enter the <code>head()</code> command which lets you peak at
@@ -910,7 +882,6 @@ proceed today!</p>
 </div>
 <div id="putting-it-all-together" class="section level1">
 <h1>Putting it all together</h1>
-<hr />
 <p>At this point you should have the basic idea for how to create
 variables in R and perform basic arithmetic. Now let’s put it all
 together to do some marine science in the form of a paired-down lab
@@ -1071,7 +1042,7 @@ these idealized shapes, but let’s see how close we can get. After all,
 </tr>
 <tr class="even">
 <td>Half-Ellipsoid</td>
-<td>2/3 × 𝜋 × 𝓁/2 × 𝒽/2 × 𝒽/2</td>
+<td>2/3 × 𝜋 × 𝒽 × 𝓁/2 × 𝓌/2</td>
 </tr>
 </tbody>
 </table>
