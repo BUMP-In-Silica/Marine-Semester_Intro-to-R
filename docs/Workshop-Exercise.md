@@ -14,13 +14,6 @@ editor_options:
     wrap: 72
 ---
 
-\fontsize{11}{13}
-\selectfont
-
-\vspace{-1cm}
-
-
-
 <br>
 <br>
 
