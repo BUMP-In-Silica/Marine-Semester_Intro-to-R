@@ -12,4 +12,8 @@ Once R and R-studio are working, learners should proceed to the Workshop Exercis
 Detailed instructions for using Google Sheets to enter measurements and export:
 
 * [Google Sheets Step-by-Step](https://bump-in-silica.github.io/Marine-Semester_Intro-to-R/03%20Google-Sheets%20Step-by-Step.html)
+
+Finally the 2025 Shell Data is available here:
+
+* [The Shell Data](https://docs.google.com/spreadsheets/d/1c_oXuh0mweXmtseuAzW01Mlr6EuuawO-zF23Ompcm70/edit?usp=sharing)
   
